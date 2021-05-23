@@ -23,7 +23,7 @@ ________
 * [Data Generation Strategy](#Data-Generation-Strategy)
 * [Network](#Network)
 * [Training And Testing](#Training-And-Testing)
-* [Results](#Results)* 
+* [Results](#Results)
 * [License](#license)
 * [Mentor](#mentor)
 
