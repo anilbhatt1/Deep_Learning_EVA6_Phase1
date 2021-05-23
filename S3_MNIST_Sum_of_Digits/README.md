@@ -37,11 +37,11 @@ ________
 ## Problem
 #### Write a neural network that can:
 - Take 2 inputs:
-- 1. an image from MNIST dataset, and
-- 2.	a random number between 0 and 9
+1. an image from MNIST dataset, and
+2.	a random number between 0 and 9
 - and gives two outputs:
-- 1.	the "number" that was represented by the MNIST image, and
-- 2.	the "sum" of this number with the random number that was generated and sent as the input to the network 
+1.	the "number" that was represented by the MNIST image, and
+2.	the "sum" of this number with the random number that was generated and sent as the input to the network 
 ![Problem_Statement_Image](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S3_MNIST_Sum_of_Digits/Pblm_Statement.jpg)
 
 <!-- Overview -->
@@ -87,6 +87,7 @@ ________
 - We determine whether a prediction is correct or not by comparing it with digit ground-truth and sum ground-truth supplied. 
 - Network was trained for 20 epochs.
 - Testing adopts similar strategy that we have done for training. Data generation strategy is also same. We will ensure that backpropagation is not done using torch.no_grad().
+- Please refer below colab notebook for code https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S3_MNIST_Sum_of_Digits/EVA6P1_S3_MNIST_Backprop_V1.ipynb
 
 <!-- Results -->
 ## Results
