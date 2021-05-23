@@ -46,9 +46,9 @@ ________
 
 <!-- Overview -->
 ## Overview
-- Network accepts 2 inputs – one is the batch of images from standard MNIST dataset. Second one is a random number generated.
+- Network accepts **2 inputs** – one is the batch of images from standard MNIST dataset. Second one is a random number generated.
 - These inputs are passed through a network comprising of convolutional and fully connected layers.
-- Later it predicts 2 outputs – one is the digit corresponding to the input MNIST image. Second is the sum of this digit and random number we have given as input.
+- Later it **predicts 2 outputs** – one is the **digit** corresponding to the input MNIST image. Second is the **sum** of this digit and random number we have given as input.
 
 <!-- Data-Representation -->
 ## Data Representation
@@ -62,26 +62,26 @@ ________
 - Target is of size [1] and holds label belonging to one of the digits 0-9.
 - MNIST data will be fetched using a dataloader for batch size of 128.
 - We will generate a random number between 0 and 9 of size [1] and then expand it to input size of [1, 28, 28].
-- We will employ a for loop to expand the random number same as batch size of [128, 1] and [128, 1, 28, 28].
+- We will employ a **for loop** to expand the random number same as batch size of [128, 1] and [128, 1, 28, 28].
 - This random data generation logic is placed inside data-loading part of MNIST image.
 - Random tensor of size [128, 1, 28, 28] and MNIST input tensor will be added to give a tensor of size [128, 1, 28, 28].
 - This is later fed to the CNN to get 2 outputs – a digit between 0-9 (T1) and a sum between 0-18 (T2).
 - These 2 outputs need to be compared against ground truth for loss-function and back-propagation. 
 - T1 will be compared against MNIST ground-truth available along with MNIST data-set.
-- For comparing T2, we will prepare ground-truth. We will add random number of size  [128, 1]  that was generated at beginning with MNIST ground-truth available which is also of size [128,1] resulting to a tensor of size [128, 1].
+- For comparing T2, we will prepare ground-truth. We will **add random number of size  [128, 1]**  that was generated at beginning **with MNIST ground-truth available** which is also of size [128,1] resulting to a tensor of size [128, 1].
 
 <!-- Network -->
 ## Network
-- Network uses 5 convolutional blocks followed by GAP to give an output of [128, 1, 1, 32]. 
-- To predict MNIST digit, we will route GAP output to a fully connected layer whose output will be [128, 10]. GAP output is then passed through log_softmax to give a one-hot encoding having 10 elements.
-- To predict sum, we will route GAP output to a fully connected layer whose output will be [128, 18]. We chosen 18 to represent numbers between 0 and 18. We chosen 18 because at lower end, if MNIST digit is 0 and random number generated is 0 then sum will 0. Similarly at higher end, if MNIST digit is 9 and random number generated is 9 then sum will 18. All other sum combinations will fall in between. GAP output is then passed through log_softmax to give a one-hot encoding having 18 elements.
+- Network uses 5 convolutional blocks followed by Global Average Pooling(GAP) to give an output of [128, 1, 1, 32]. 
+- To predict MNIST digit, we will route GAP output to a fully connected layer whose output will be **[128, 10]**. GAP output is then passed through **log_softmax** to give a one-hot encoding having **10** elements.
+- To predict sum, we will route GAP output to a fully connected layer whose output will be **[128, 18]**. We chosen 18 to represent numbers between 0 and 18. We chosen 18 because at lower end, if MNIST digit is 0 and random number generated is 0 then sum will 0. Similarly at higher end, if MNIST digit is 9 and random number generated is 9 then sum will 18. All other sum combinations will fall in between. GAP output is then passed through **log_softmax** to give a one-hot encoding having **18** elements.
 
 <!-- Training-And-Testing -->
 ## Training And Testing
-- Loss function used is Negative Likelihood Loss(NLL) as we employed softmax to get one-hot encoding in network.
-- There are 2 losses calculated – Loss 1 to capture Digit loss and Loss 2 to capture Sum loss.
+- Loss function used is **Negative Likelihood Loss(NLL)** as we employed softmax to get one-hot encoding in network.
+- There are 2 losses calculated – **Loss 1 to capture Digit loss and Loss 2 to capture Sum loss**.
 - Both Loss 1 and Loss2 are combined and backpropagated to improve the network.
-- Similarly 2 accuracies were captured – one is digit accuracy and other is sum accuracy. 
+- Similarly 2 accuracies were captured – one is **digit accuracy** and other is **sum accuracy**. 
 - Digit accuracy = Total number of correct predictions / Total input images fed to network
 - Sum accuracy = Total number of correct sum predicted / Total input images fed to network
 - We determine whether a prediction is correct or not by comparing it with digit ground-truth and sum ground-truth supplied. 
@@ -91,10 +91,10 @@ ________
 
 <!-- Results -->
 ## Results
-- Max Train Digit accuracy is 97.93 and achieved in epoch 18.
-- Max Train Sum accuracy is 89.135 and achieved in epoch 19.
-- Max Test Digit accuracy is 98.5 and achieved in epoch 19.
-- Max Test Sum accuracy is 93.6 and achieved in epoch 19.
+- Max Train Digit accuracy is **97.93** and achieved in epoch **18**.
+- Max Train Sum accuracy is **89.135** and achieved in epoch **19**.
+- Max Test Digit accuracy is **98.5** and achieved in epoch **19**.
+- Max Test Sum accuracy is **93.6** and achieved in epoch **19**.
 
 ![Training_Plot](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S3_MNIST_Sum_of_Digits/Training_Plot.png)
 
