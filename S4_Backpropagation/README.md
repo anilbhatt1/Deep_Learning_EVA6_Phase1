@@ -120,7 +120,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropaga
 ## Results
 - E_Tot change for 40 iterations corresponding to ƞ = 0.1 as below:
 
-![Training_Plot](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S3_MNIST_Sum_of_Digits/Training_Plot.png)
+![Excel_Snapshot](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Screenshot_LR_0.1.jpg)
 
 - Loss plot against iterations corresponding to ƞ = [0.1, 0.2, 0.5, 0.8, 1.0, 2.0]. 
 
