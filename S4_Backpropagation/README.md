@@ -10,7 +10,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-# Understanding how backpropagation works
+# Backpropagation
 ________
 
 <!-- TABLE OF CONTENTS -->
@@ -82,8 +82,11 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropaga
       -  ∂E1/∂a_o1 = ∂ [1/2 * (t1 - a_o1)²]/∂a_o1 = (a_o1 - t1)
       -  ∂a_o1/∂o1  = a_o1 * (1-a_o1)  (Derivative of sigmoid σ is σ(1-σ))
       -  ∂o1/∂w5 = a_h1
-    - ∂E_Tot/∂w5 = ∂E1/∂w5 = (a_o1 - t1) * a_o1 * (1-a_o1) * a_h1
-  
+    - **∂E_Tot/∂w5 = (a_o1 - t1) * a_o1 * (1-a_o1) * a_h1**
+  - Similarly, we can find out effect of w6, w7 and w8 which will be as below
+    - **∂E_Tot/∂w6 =  (a_o1 - t1) * a_o1 * (1-a_o1) * a_h2** (Only change from ∂E_Tot/∂w5 is *a_h2* instead of *a_h1.*)
+    - **∂E_Tot/∂w7 =  (a_o2 - t2) * a_o2 * (1-a_o2) * a_h1** (Flow is *a_h1 -> o2 -> a_o2 -> E2 -> E_Total*)
+    - **∂E_Tot/∂w8 =  (a_o2 - t2) * a_o2 * (1-a_o2) * a_h2** (Only change from ∂E_Tot/∂w7 is *a_h2* instead of *a_h1.*)
 
 <!-- Results -->
 ## Results
