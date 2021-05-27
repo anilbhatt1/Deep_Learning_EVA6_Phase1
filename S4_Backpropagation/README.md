@@ -10,7 +10,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-# MNIST Sum Of Digits
+# Understanding how backpropagation works
 ________
 
 <!-- TABLE OF CONTENTS -->
@@ -18,6 +18,7 @@ ________
 
 * [Prerequisites](#prerequisites)
 * [Problem](#Problem)
+* [Overview](#Overview)
 * [Details](#Details)
 * [Results](#Results)
 * [License](#license)
@@ -31,14 +32,46 @@ ________
 ## Problem
 - Create an excel sheet showing how backpropagation works for different learning rates
 
-<!-- Details -->
-## Details
-- Please refer the excel sheet in below link for reference. Details of how it is built as follows:
+<!-- Overview -->
+## Overview
+- Please refer the excel sheet in below link for reference. 
 https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Back_Propagation_Understanding.xlsx
 - Backpropagation can be best understood by below animation
+
 ![Back_Prop](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Neural%20Network_Back_Forth_Compressed.gif) 
-- Input can be represented as below
-![Input_Data](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S3_MNIST_Sum_of_Digits/Input_Data.jpg)
+
+- Here the flow that is happening forward is called forward pass and flow happening backward is called backward pass or **back-propagation**.
+- After prediction, each layer will receive feedback from its preceding layer. Feedback will be in the form of losses incurred at each layer during prediction.
+- Aim of algorithm is to arrive at optimal loss. We call this as local minima.
+- Based on the feedback, network will adjust the weights so that convolutions will give better results when next forward pass happens.
+- When next forward pass happens, loss will come down. Again, we will do backprop, network will continue to adjust and process repeats.
+
+<!-- Details -->
+## Details
+- Let us understand the details in excel sheet. Please refer the image below.
+![Flow](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
+- We will explain this with reference to below problem:
+  - Network accepts 2 inputs - MNIST image (i1) and a random number(i2).
+  - Network gives 2 outputs - Digit corresponding to MNIST image and sum of MNIST digit & rando number given. 
+- As mentioned above, i1, i2 in the image refers to the input. 
+- Let us inspect forward pass first:
+  - h1 and h2 are outputs of fully connected layer (FC1). w1, w2, w3 and w4 are the weights that connect to FC1 layer nodes - h1 and h2.
+  - h1 = w1*i1 + w2*i2
+  - h2 = w3*i1 + w4*i2
+  - If we just use multiplications, no matter how many layers we use, final output can be represented as a linear function of input. This essentially collapses the solution to a one layer problem. Also with linear layers, derivative of function will become constant which means it has no relation to input. We cannot backpropagate in such cases. Hence, for backpropagation to happen, we need non-linearity. Due to these reasons, non-linearity is essential in Deep Neural networks also.
+  - h1 and h2 are activated via sigmoid function to bring non-linearity. 
+  - a_h1 = σ(h1) & a_h2 = σ(h2)
+  - a_h1 and a_h2 are fed to next fully connected layer (FC2) whose output are o1 and o2. w5, w6, w7 and w8 are the weights that connect a_h1 and a_h2 to FC2 layer nodes - o1 and o2.
+  - o1 = w5*a_h1 + w6*a_h2
+  - o2 = w7*a_h1 + w8*a_h2
+  - o1 and o2 are activated via sigmoid function to bring non-linearity.
+  - a_o1 = σ(o1) & a_o2 = σ(o2)
+  - Next we will calculate error with respect to ground truth aka target. t1 is the target for i1 and t2 is the target for i2. We will use mean square error to calculate losses. E1 is be the error corresponding to i1 and E2 for i2.
+  - E1 = 1/2 * (t1 - a_o1)² & E2 = 1/2 * (t2 - a_o2)²
+  - E_Total = E1 + E2
+  - This concludes the forward pass.
+ - Now, let us delve into backward propagation:
+  
 
 <!-- Results -->
 ## Results
