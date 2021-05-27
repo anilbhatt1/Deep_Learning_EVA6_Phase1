@@ -62,8 +62,8 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropaga
   - h1 and h2 are activated via sigmoid function to bring non-linearity. 
   - a_h1 = σ(h1) & a_h2 = σ(h2)
   - a_h1 and a_h2 are fed to next fully connected layer (FC2) whose output are o1 and o2. w5, w6, w7 and w8 are the weights that connect a_h1 and a_h2 to FC2 layer nodes - o1 and o2.
-  - o1 = w5*a_h1 + w6*a_h2
-  - o2 = w7*a_h1 + w8*a_h2
+  - o1 = w5 * a_h1 + w6 * a_h2
+  - o2 = w7 * a_h1 + w8 * a_h2
   - o1 and o2 are activated via sigmoid function to bring non-linearity.
   - a_o1 = σ(o1) & a_o2 = σ(o2)
   - Next we will calculate error with respect to ground truth aka target. t1 is the target for i1 and t2 is the target for i2. We will use mean square error to calculate losses. E1 is be the error corresponding to i1 and E2 for i2.
