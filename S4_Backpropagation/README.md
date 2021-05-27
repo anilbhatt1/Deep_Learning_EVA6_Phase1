@@ -71,6 +71,18 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropaga
   - E_Total = E1 + E2
   - This concludes the forward pass.
  - Now, let us delve into backward propagation:
+  - **Main objective of backpropagation is to update the weights based on the losses that we obtained.**
+  - We accomplish this by taking partial derivative. By using partial derivative, we are finding out the effect that particular variable has on loss while keeping all other variables constant.
+  - Here we need to find out effect of weights w1, w2, w3, w4, w5, w6, w7 and w8 on Total Error i.e E_Tot and then adjust the weights based on these.
+  - Hence our first aim should be to find out ∂E_Tot/∂w1, ∂E_Tot/∂w2,....∂E_Tot/∂w8.
+  - Let us consider ∂E_Tot/∂w5 first. 
+    - ∂E_Tot/∂w5 = ∂(E1 + E2)/∂w5
+    - ∂E_Tot/∂w5 = ∂E1/∂w5 (Because w5 is not playing any role for E2)
+    - ∂E_Tot/∂w5 = ∂E1/∂w5 = ∂E1/∂a_o1 * ∂a_o1/∂o1 * ∂o1/∂w5 (Applying chain rule)
+      -  ∂E1/∂a_o1 = ∂ [1/2 * (t1 - a_o1)²]/∂a_o1 = (a_o1 - t1)
+      -  ∂a_o1/∂o1  = a_o1 * (1-a_o1)  (Derivative of sigmoid σ is σ(1-σ))
+      -  ∂o1/∂w5 = a_h1
+    - ∂E_Tot/∂w5 = ∂E1/∂w5 = (a_o1 - t1) * a_o1 * (1-a_o1) * a_h1
   
 
 <!-- Results -->
