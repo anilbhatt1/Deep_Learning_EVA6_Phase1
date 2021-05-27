@@ -61,7 +61,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropaga
   - If we just use multiplications, no matter how many layers we use, final output can be represented as a linear function of input. This essentially collapses the solution to a one layer problem. Also with linear layers, derivative of function will become constant which means it has no relation to input. We cannot backpropagate in such cases. Hence, for backpropagation to happen, we need non-linearity. Due to these reasons, non-linearity is essential in Deep Neural networks also.
   - *h1* and *h2* are activated via sigmoid function to bring non-linearity. 
   - *a_h1 = σ(h1)* & *a_h2 = σ(h2)*
-  - a_h1 and a_h2 are fed to next fully connected layer (FC2) whose output are *o1* and *o2*. *w5, w6, w7 and w8* are the weights that connect *a_h1* and *a_h2* to FC2 layer nodes - *o1* and *o2*.
+  - *a_h1* and *a_h2* are fed to next fully connected layer (FC2) whose output are *o1* and *o2*. *w5, w6, w7 and w8* are the weights that connect *a_h1* and *a_h2* to FC2 layer nodes - *o1* and *o2*.
   - *o1 = w5 * a_h1 + w6 * a_h2*
   - *o2 = w7 * a_h1 + w8 * a_h2*
   - *o1* and *o2* are activated via sigmoid function to bring non-linearity.
@@ -102,19 +102,29 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropaga
 - Let us consider populating the excel values now:
   - Please note that we will explaining for instance with learning rate ƞ = 0.1.
   - We choose values of t1, t2, i1, i2 as 0.01, 0.99, 0.05 and 0.1. These values will remain constant throughout the iterations.
-
+  - For 1st iteration (row no: 32), we set values of w1, w2, w3, w4 as 0.15000, 0.20000, 0.25000, 0.30000 and w5, w6, w7, w8 as 0.40000, 0.45000, 0.50000, 0.55000.
+  - All the remaining values are calculated based on formulas listed above.
+  - From 2nd iteration onwards, values of w1, w2, w3,...w8 are calculated as below:
+    - w1 = w1 - ƞ * ∂E_Tot/∂w1
+    - w2 = w2 - ƞ * ∂E_Tot/∂w2
+    - ..
+    - ..
+    - w8 = w8 - ƞ * ∂E_Tot/∂w8
+  - We iterate 51 times for each ƞ.
+  - Excel sheet covers iterations corresponding to ƞ = [0.1, 0.2, 0.5, 0.8, 1.0, 2.0] 
+  - Quick snapshot of E_Tot for 40 iterations corresponding to ƞ = 0.1 is listed below in results.
+  - Similarly a loss plot against iterations for each ƞ can also be seen in results. As we can see, **loss (E_Tot) decreases as we proceed across iterations and rate of decrease is faster based on increase in ƞ**.
 
 
 <!-- Results -->
 ## Results
-- Max Train Digit accuracy is **97.93** and achieved in epoch **18**.
-- Max Train Sum accuracy is **89.135** and achieved in epoch **19**.
-- Max Test Digit accuracy is **98.5** and achieved in epoch **19**.
-- Max Test Sum accuracy is **93.6** and achieved in epoch **19**.
+- E_Tot change for 40 iterations corresponding to ƞ = 0.1 as below:
 
 ![Training_Plot](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S3_MNIST_Sum_of_Digits/Training_Plot.png)
 
-![Testing_Plot](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S3_MNIST_Sum_of_Digits/Testing_Plot.png)
+- Loss plot against iterations corresponding to ƞ = [0.1, 0.2, 0.5, 0.8, 1.0, 2.0]. 
+
+![Loss_Plot](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Loss_Plot_vs_LR.jpg)
 
 <!-- LICENSE -->
 ## License
