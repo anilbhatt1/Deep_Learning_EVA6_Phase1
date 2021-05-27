@@ -56,21 +56,21 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropaga
 - As mentioned above, i1, i2 in the image refers to the input. 
 - Let us inspect forward pass first:
   - h1 and h2 are outputs of fully connected layer (FC1). w1, w2, w3 and w4 are the weights that connect to FC1 layer nodes - h1 and h2.
-  - h1 = w1*i1 + w2*i2
-  - h2 = w3*i1 + w4*i2
+  - *h1 = w1 * i1 + w2 * i2
+  - *h2 = w3 * i1 + w4 * i2
   - If we just use multiplications, no matter how many layers we use, final output can be represented as a linear function of input. This essentially collapses the solution to a one layer problem. Also with linear layers, derivative of function will become constant which means it has no relation to input. We cannot backpropagate in such cases. Hence, for backpropagation to happen, we need non-linearity. Due to these reasons, non-linearity is essential in Deep Neural networks also.
   - h1 and h2 are activated via sigmoid function to bring non-linearity. 
   - a_h1 = σ(h1) & a_h2 = σ(h2)
   - a_h1 and a_h2 are fed to next fully connected layer (FC2) whose output are o1 and o2. w5, w6, w7 and w8 are the weights that connect a_h1 and a_h2 to FC2 layer nodes - o1 and o2.
-  - o1 = w5 * a_h1 + w6 * a_h2
-  - o2 = w7 * a_h1 + w8 * a_h2
+  - *o1 = w5 * a_h1 + w6 * a_h2
+  - *o2 = w7 * a_h1 + w8 * a_h2
   - o1 and o2 are activated via sigmoid function to bring non-linearity.
   - a_o1 = σ(o1) & a_o2 = σ(o2)
   - Next we will calculate error with respect to ground truth aka target. t1 is the target for i1 and t2 is the target for i2. We will use mean square error to calculate losses. E1 is be the error corresponding to i1 and E2 for i2.
   - E1 = 1/2 * (t1 - a_o1)² & E2 = 1/2 * (t2 - a_o2)²
   - E_Total = E1 + E2
   - This concludes the forward pass.
- - Now, let us delve into backward propagation:
+- Now, let us delve into backward propagation:
   - **Main objective of backpropagation is to update the weights based on the losses that we obtained.**
   - We accomplish this by taking partial derivative. By using partial derivative, we are finding out the effect that particular variable has on loss while keeping all other variables constant.
   - Here we need to find out effect of weights w1, w2, w3, w4, w5, w6, w7 and w8 on Total Error i.e E_Tot and then adjust the weights based on these.
@@ -83,10 +83,27 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropaga
       -  ∂a_o1/∂o1  = a_o1 * (1-a_o1)  (Derivative of sigmoid σ is σ(1-σ))
       -  ∂o1/∂w5 = a_h1
     - **∂E_Tot/∂w5 = (a_o1 - t1) * a_o1 * (1-a_o1) * a_h1**
-  - Similarly, we can find out effect of w6, w7 and w8 which will be as below
+  - Similarly, we can find out effect of w6, w7 and w8 which will be as below:
     - **∂E_Tot/∂w6 =  (a_o1 - t1) * a_o1 * (1-a_o1) * a_h2** (Only change from ∂E_Tot/∂w5 is *a_h2* instead of *a_h1.*)
     - **∂E_Tot/∂w7 =  (a_o2 - t2) * a_o2 * (1-a_o2) * a_h1** (Flow is *a_h1 -> o2 -> a_o2 -> E2 -> E_Total*)
     - **∂E_Tot/∂w8 =  (a_o2 - t2) * a_o2 * (1-a_o2) * a_h2** (Only change from ∂E_Tot/∂w7 is *a_h2* instead of *a_h1.*)
+  - Now let us consider ∂E_Tot/∂w1.
+    - ∂E_Tot/∂w1 = ∂E_Tot/∂a_h1 * ∂a_h1/∂h1 * ∂h1/∂w1
+      - ∂E_Tot/∂a_h1 = ∂E1/∂a_h1 + ∂E2/∂a_h1
+      - ∂E1/∂a_h1 = ∂E1/∂a_o1 * ∂a_o1/o1 * ∂o1/∂a_h1  =  (a_o1 - t1) * a_o1 * (1-a_o1) * w5
+      - ∂E2/∂a_h1 = ∂E2/∂a_o2 * ∂a_o2/o2 * ∂o2/∂a_h1  =  (a_o2 - t2) * a_o2 * (1-a_o2) * w7
+      - ∂E_Tot/∂a_h1 = (a_o1 - t1) * a_o1 * (1-a_o1) * w5 + (a_o2 - t2) * a_o2 * (1-a_o2) * w7
+      - ∂E_Tot/∂a_h2 = (a_o1 - t1) * a_o1 * (1-a_o1) * w6 + (a_o2 - t2) * a_o2 * (1-a_o2) * w8 (Similar to ∂E_Tot/∂a_h1)
+    - **∂E_Tot/∂w1 = ( (a_o1 - t1) * a_o1 * (1-a_o1) * w5 + (a_o2 - t2) * a_o2 * (1-a_o2) * w7 ) * a_h1 * (1- a_h1) * i1     **
+  - Similarly, we can find out effect of w2, w3 and w4 which will be as below:
+    - **∂E_Tot/∂w2 = ( (a_o1 - t1) * a_o1 * (1-a_o1) * w5 + (a_o2 - t2) * a_o2 * (1-a_o2) * w7 ) * a_h1 * (1- a_h1) * i2
+    - **∂E_Tot/∂w3 = ( (a_o1 - t1) * a_o1 * (1-a_o1) * w6 + (a_o2 - t2) * a_o2 * (1-a_o2) * w8 ) * a_h2 * (1- a_h2) * i1
+    - **∂E_Tot/∂w4 = ( (a_o1 - t1) * a_o1 * (1-a_o1) * w6 + (a_o2 - t2) * a_o2 * (1-a_o2) * w8 ) * a_h2 * (1- a_h2) * i2
+- Let us consider populating the excel values now:
+  - Please note that we will explaining for instance with learning rate ƞ = 0.1.
+  - We choose values of t1, t2, i1, i2 as 0.01, 0.99, 0.05 and 0.1. These values will remain constant throughout the iterations.
+
+
 
 <!-- Results -->
 ## Results
