@@ -10,7 +10,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-# Network to achieve 99.4% or above accuracy in 20 epochs with 20K model parameters for MNIST dataset
+# Network to achieve 99.4% or above accuracy in 15 epochs with < 10K model parameters for MNIST dataset
 ________
 
 <!-- TABLE OF CONTENTS -->
@@ -42,19 +42,19 @@ ________
 
 - **File Name** : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S5_Drill_Down_Approach/EVA6_S5_F1_Basic_Skeleton.ipynb
 - **Target:**
- - Get the set-up right
- - Set Transforms
- - Set Data Loader
- - Set Basic Working Code
- - Set Basic Training  & Test Loop
+  - Get the set-up right
+  - Set Transforms
+  - Set Data Loader
+  - Set Basic Working Code
+  - Set Basic Training  & Test Loop
 - **Results:**
- - Parameters: 8,892
+  - Parameters: 8,892
 - **Best Test Accuracies achieved:**
- - 98.60 for lr = 0.02 with reduction
- - 98.55 for lr = 0.03 without reduction
- - 98.39 for lr = 0.05 with reduction
+  - 98.60 for lr = 0.02 with reduction
+  - 98.55 for lr = 0.03 without reduction
+  - 98.39 for lr = 0.05 with reduction
 - **Analysis:**
- -	Need to add regularization & more layers to increase test accuracy
+  - Need to add regularization & more layers to increase test accuracy
 
 <!-- LICENSE -->
 ## License
