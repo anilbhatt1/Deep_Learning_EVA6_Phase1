@@ -19,6 +19,7 @@ ________
 * [Prerequisites](#prerequisites)
 * [Problem](#Problem)
 * [Skeleton](#Skeleton)
+* [Modified V1](#Modified-V1)
 * [Results](#Results)
 * [License](#license)
 * [Mentor](#mentor)
@@ -60,6 +61,26 @@ ________
   - 98.39 for lr = 0.05 with reduction
 - **Analysis:**
   - Need to add regularization & more layers to increase test accuracy
+
+<!-- Modified-V1 -->
+## Modified V1
+
+- **File Name**
+File Name : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S5_Drill_Down_Approach/EVA6_S5_F2_Second_Iteration.ipynb
+- **Target**
+  - Included batch norm & dropout
+  - Added more convolutional layers to give more depth
+  - Removed second max-pool layer as it will be too much compression for MNIST
+  - Added 2 FC layers at end after GAP
+  -	Used MultiStepLr to change the LR at intermediate steps during training
+- **Results:**
+  -	Parameters: 9,780
+  -	Best Test Accuracy: 99.29
+  - Model was able to achieve ~ 99.29% accuracy stable throughout
+- **Analysis:**
+  -	Adding 2 FC layers helped in increasing accuracy
+  - Dropout of 0.05 & augmentations in train data helped to achieve variety
+  - Reducing LR by 0.5 helped on intermittent epochs helped to avoid plateaus while training
 
 <!-- LICENSE -->
 ## License
