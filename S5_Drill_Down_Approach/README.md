@@ -41,6 +41,11 @@ ________
 ## Skeleton
 
 - **File Name** : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S5_Drill_Down_Approach/EVA6_S5_F1_Basic_Skeleton.ipynb
+
+- **Network**
+ 
+![Ntwk1](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S5_Drill_Down_Approach/Model1.jpg)
+
 - **Target:**
   - Get the set-up right
   - Set Transforms
