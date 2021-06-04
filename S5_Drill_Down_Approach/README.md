@@ -20,6 +20,7 @@ ________
 * [Problem](#Problem)
 * [Skeleton](#Skeleton)
 * [Modified V1](#Modified-V1)
+* [Modified V2](#Modified-V2)
 * [Results](#Results)
 * [License](#license)
 * [Mentor](#mentor)
@@ -81,6 +82,24 @@ File Name : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S5
   -	Adding 2 FC layers helped in increasing accuracy
   - Dropout of 0.05 & augmentations in train data helped to achieve variety
   - Reducing LR by 0.5 helped on intermittent epochs helped to avoid plateaus while training
+
+<!-- Modified-V2 -->
+## Modified V2
+
+- **File Name**
+File Name : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S5_Drill_Down_Approach/EVA6_S5_F3_Third_Iteration.ipynb
+- **Target**
+  - Modified LR to 0.025
+  - Modified momentum to 0.8
+  - Used step_lr with reduction by 0.1 for evary 6 epochs
+  - Removed additional FC layer
+- **Results:**
+  -	Parameters: 9,680
+  -	Best Test Accuracy: 99.41
+  - Model was able to achieve ~ 99.4% accuracy twice and was hovering around 99.30% throughout
+- **Analysis:**
+  - Fine-tuning LR & momentum helped on intermittent epochs helped to avoid plateaus while training
+  - Will require further fine-tuning in model to achieve 99.4% stably throughout epochs
 
 <!-- LICENSE -->
 ## License
