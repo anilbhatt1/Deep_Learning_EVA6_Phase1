@@ -31,7 +31,7 @@ class test_losses():
 
       test_loss /= len(self.test_loader.dataset)
       self.stats.append_loss(round(test_loss,6))
-      test_acc = round((100. * correct / len(test_loader.dataset)), 2)
+      test_acc = round((100. * correct / len(self.test_loader.dataset)), 2)
       self.stats.append_acc(test_acc)
 
       print(f'Test set: Epoch : {current_epoch}/{self.total_epochs} Average loss: {test_loss :.4f}, Test Accuracy: {test_acc}')

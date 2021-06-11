@@ -43,7 +43,7 @@ class train_losses():
             train_loss /= processed
             self.stats.append_loss(round(train_loss.item(), 6))
 
-        train_acc = round((100. * correct / len(train_loader.dataset)), 2)
+        train_acc = round((100. * correct / len(self.train_loader.dataset)), 2)
         self.stats.append_acc(train_acc)
 
         print(
