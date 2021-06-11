@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 class stats_collector():
     def __init__(self):
@@ -42,3 +43,25 @@ class unnorm_img():
         img = (img * self.stdev) + self.mean
 
         return img
+
+class plots():
+
+    # 5 * 5 images
+    def plot_misclassified(test_stats, num_images, title, class_names, fig_size, unnorm_mispred):
+
+        figure = plt.figure(figsize=fig_size)
+        print(f'** Plotting misclassified images from last epoch for {title} **')
+        print('\n')
+        class_names_dict = class_names
+        if len(test_stats.img) > num_images:
+            for i in range(num_images):
+                plt.subplot(5, 5, i + 1)
+                plt.axis(False)
+                unnorm = unnorm_mispred.unnorm_gray(test_stats.img[i].squeeze().cpu())
+                plt.imshow(unnorm, cmap='gray_r')
+                prediction = class_names_dict.get(test_stats.pred[i])
+                actual = class_names_dict.get(test_stats.label[i])
+                s = "pred=" + str(prediction) + " act=" + str(actual)
+                plt.text(2, -1, s)
+        else:
+            print(f'Unable to plot - Less than {num_images} images, only have {len(test_stats.img)} images')
