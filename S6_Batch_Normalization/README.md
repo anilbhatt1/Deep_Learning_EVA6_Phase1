@@ -18,7 +18,7 @@ ________
 
 * [Prerequisites](#prerequisites)
 * [Code](#Code)
-* [Normalization Types](#Normalization Types)
+* [Normalization Types](#Normalization-Types)
 * [Loss And Accuracy Plots](#Loss And Accuracy Plots)
 * [Misclassified Images](#Misclassified Images)
 * [Findings](#Findings)
@@ -84,7 +84,7 @@ ________
 	- Class : **plots**
 		- Handles plotting 25 misclassified images in a 5*5 canvas
 
-<!-- Normalization Types -->
+<!-- Normalization-Types -->
 ## Normalization Types
 - Batch Normalization
 - Layer Normalization
