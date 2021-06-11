@@ -43,7 +43,7 @@ class CNNBlocks(nn.Module):
 class S6_CNNModel(nn.Module):
 
     def __init__(self, n_cnn_blocks, n_class, dropout_value, norm_type):
-        super(CNNModel, self).__init__()
+        super(S6_CNNModel, self).__init__()
 
         self.n_class = n_class
         self.cnn_block0 = nn.Sequential(CNNBlocks(1, 16, (3, 3), 0, dropout_value, norm_type))
