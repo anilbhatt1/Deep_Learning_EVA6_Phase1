@@ -1,3 +1,7 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
 class test_losses():
   def __init__(self, model, device, test_loader, test_stats, total_epochs):
       self.model       = model

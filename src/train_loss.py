@@ -1,4 +1,7 @@
 from tqdm import tqdm
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
 class train_losses():
     def __init__(self, model, device, train_loader, train_stats, optimizer, total_epochs):
@@ -28,7 +31,7 @@ class train_losses():
             train_loss += L1_factor * reg_loss
 
             train_loss.backward()
-            optimizer.step()
+            self.optimizer.step()
 
             pred = y_pred.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             correct += pred.eq(target.view_as(pred)).sum().item()
