@@ -1,3 +1,5 @@
+import numpy as np
+
 class stats_collector():
     def __init__(self):
         self.losses = []
