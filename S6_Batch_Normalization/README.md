@@ -37,15 +37,15 @@ ________
 - **models.py**
 	- Location : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/src/models.py
 	- Handles the CNN model	creation
-	- There are 3 models being built:
+	- There are 3 models being built (more details below):
 		- 1) **Batch Normalization with L1 & L2**
 		- 2) **Layer Normalization with L2**
 		- 3) **Group Normalization with L1**
-	- CNN blocks will be build based on the normalization parameter passed while defining the model.
-	- Class : **CNNNorm** -> This creates normalization layer based on normalization parameter passed.
-		- 3 types of normalization layers will be built : Batch Norm, Layer Norm, Group Norm
+	- CNN blocks were built based on the normalization parameters passed while defining the model.
+	- Class : **CNNNorm** -> This creates normalization layer based on normalization parameters passed.
+		- 3 types of normalization layers can be built : Batch Norm, Layer Norm, Group Norm
 	- Class : **CNNBlocks** -> This creates the CNN blocks
-		- Combines conv2d -> relu -> normalization -> dropout
+		- Combines conv2d -> relu -> normalization -> dropout layers
 		- Total 5 convolution blocks are used in the model
 		- Normalization layer built by CNNNorm is used here to build the blocks
 	- Class : **S6_CNNModel** -> This creates the model
@@ -58,6 +58,7 @@ ________
 		- L1 and L2 referred above are L1 and L2 losses which are used while training the model.
 		- Optimizer used was SGD with momentum of 0.8
 		- StepLR was used with initial lr of 0.025 that decreases by a factor of gamma=0.1 every 6 epochs
+		- L1 value = 0.001, L2 = 0.0005
 - **train_loss.py**
 	- Location : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/src/train_loss.py
 	- Handles the training losses
