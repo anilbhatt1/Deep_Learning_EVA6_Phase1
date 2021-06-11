@@ -34,6 +34,8 @@ ________
 
 <!-- Code -->
 ## Code
+- For Training details, refer below colab notebook location:
+https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/EVA6_S6_V3.ipynb
 - **models.py**
 	- Location : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/src/models.py
 	- Handles the CNN model	creation
