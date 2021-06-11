@@ -19,8 +19,8 @@ ________
 * [Prerequisites](#prerequisites)
 * [Code](#Code)
 * [Normalization Types](#Normalization-Types)
-* [Loss And Accuracy Plots](#Loss And Accuracy Plots)
-* [Misclassified Images](#Misclassified Images)
+* [Loss And Accuracy Plots](#Loss-And-Accuracy-Plots)
+* [Misclassified Images](#Misclassified-Images)
 * [Findings](#Findings)
 * [License](#license)
 * [Mentor](#mentor)
@@ -97,8 +97,8 @@ ________
 - Cells are colour coded for sake of understanding as shown below.
 ![Normalization](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
 
-<!-- Loss and accuracy Plots -->
-## Loss and accuracy Plots
+<!-- Loss-And-Accuracy-Plots -->
+## Loss And Accuracy Plots
 - Training Loss
 
 ![Training_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
@@ -115,7 +115,7 @@ ________
 
 ![Testing_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
 
-<!-- Misclassified Images -->
+<!-- Misclassified-Images -->
 ## Misclassified Images
 - 25 misclassified images while training with Batch-Normalization + L1 + L2
 
