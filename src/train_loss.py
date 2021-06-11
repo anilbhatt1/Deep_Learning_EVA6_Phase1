@@ -1,4 +1,6 @@
-class s6_train_loss():
+from tqdm import tqdm
+
+class train_losses():
     def __init__(self, model, device, train_loader, train_stats, optimizer, total_epochs):
         self.model = model
         self.device = device

@@ -1,4 +1,4 @@
-class test_loss():
+class test_losses():
   def __init__(self, model, device, test_loader, test_stats, total_epochs):
       self.model       = model
       self.device      = device
