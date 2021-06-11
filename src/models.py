@@ -1,3 +1,8 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+
 class CNNNorm(nn.Module):
     """Normalization built for cnns input"""
     def __init__(self, norm_type, n_channels):
