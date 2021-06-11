@@ -37,6 +37,10 @@ ________
 - **models.py**
 	- Location : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/src/models.py
 	- Handles the CNN model	creation
+	- There are 3 models being built:
+		- 1) **Batch Normalization with L1 & L2**
+		- 2) **Layer Normalization with L2**
+		- 3) **Group Normalization with L1**
 	- CNN blocks will be build based on the normalization parameter passed while defining the model.
 	- Class : **CNNNorm** -> This creates normalization layer based on normalization parameter passed.
 		- 3 types of normalization layers will be built : Batch Norm, Layer Norm, Group Norm
@@ -95,43 +99,49 @@ ________
 - Download it & press F2 to understand how mean(µ) and std dev (σ) are calculated for each type of normalization.
 - Formula for batch normalization is [(x - µ)/σ * ϒ] + β where ϒ and β are trainable parameters whereas µ & σ are non-trainable.
 - Cells are colour coded for sake of understanding as shown below.
-![Normalization](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
+![Normalization](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/Normalization_Excel_Snapshot.jpg)
 
 <!-- Loss-And-Accuracy-Plots -->
 ## Loss And Accuracy Plots
 - Training Loss
 
-![Training_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
+![Training_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/Train_Losses.jpg)
 
 - Training Accuracy
 
-![Training_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
+![Training_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/Train_Accuracy.jpg)
 
 - Testing Loss
 
-![Testing_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
+![Testing_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/Test_Losses.jpg)
 
 - Testing Accuracy
 
-![Testing_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
+![Testing_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/Test_Accuracy.jpg)
 
 <!-- Misclassified-Images -->
 ## Misclassified Images
 - 25 misclassified images while training with Batch-Normalization + L1 + L2
 
-![Batch_Norm](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
+![Batch_Norm](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/BN_L1_L2_Misclassified.png)
 
 - 25 misclassified images while training with Layer-Normalization + L2
 
-![Layer_Norm](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
+![Layer_Norm](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/LN_L2_Misclassified.png)
 
 - 25 misclassified images while training with Group-Normalization + L1
 
-![Group_Norm](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S4_Backpropagation/Excel_Snapshot.jpg)
+![Group_Norm](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/GN_L1_Misclassified.png)
 
 <!-- Findings -->
 ## Findings
-- E_Tot change for 40 iterations corresponding to ƞ = 0.1 as below:
+- L1 value of 0.001 and L2 value of 0.005 was used.
+- Group Norm with L1 is better that Batch Norm with L1 + L2 as well as Layer Norm with L2.
+- Group Norm with L1 was consistently hitting ~99.4% test accuracy in last epochs. Accuracies for last 7 epochs : [99.4, 99.41, 99.34, 99.41, 99.38, 99.4, 99.4]
+- Other 2 models where hovering around ~99.3% towards last few epochs.
+- Reason for Group Norm with L1 being better could be because of L1 regularization. L1 regularization might have helped to take care of outliers thereby increasing accuracy.
+- MNIST being a simple dataset doesn't require L1 and L2 regularization as ~99.4 was achieved without these.
+- Max test accuracy achieved : 99.41 for Group Norm with L1.
 
 <!-- LICENSE -->
 ## License
