@@ -46,7 +46,7 @@ class unnorm_img():
 
     def unnorm_albumented(self, img):
         for i in range(img.shape[0]):
-            img[i] = (img[i]*channels_stdev[i])+channels_mean[i]
+            img[i] = (img[i]*self.stdev[i])+self.mean[i]
             img = img.permute(1, 2, 0)
         return img
 
