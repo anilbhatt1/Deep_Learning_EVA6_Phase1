@@ -35,11 +35,12 @@ ________
 ## Code
 - **Dataset Used** : CIFAR-10 , Image Resolution : 32x32x3
 - For Training details, refer below colab notebook location:
-https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/EVA6_S6_V3.ipynb
+https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/EVA6_S7_Dilated_Albumentation_V2.ipynb
 - **s7_model.py**
 	- Location : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/src/s7_model.py
 	- Please refer network diagram below to understand the architecture.
 	- **Parameters** :99,744
+	- Model trained for 200 epochs and achieved 87.17% test accuracy
 	- Receptive Field Arrived is 61. Please refer https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/RF%20Calculator.xlsx for receptive field calculations.
 	- L1 losses were used while training the model. L1_factor=0.0005
 	- Optimizer used was SGD with momentum of 0.8
@@ -84,25 +85,25 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Norma
 ## Loss And Accuracy Plots
 - Training Loss
 
-![Training_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/Train_Losses.jpg)
+![Training_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/Train_Losses.jpg)
 
 - Training Accuracy
 
-![Training_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/Train_Accuracy.jpg)
+![Training_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/Test_Accuracy.pngTrain_Accuracy.jpg)
 
 - Testing Loss
 
-![Testing_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/Test_Losses.jpg)
+![Testing_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/Test_Losses.png)
 
 - Testing Accuracy
 
-![Testing_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/Test_Accuracy.jpg)
+![Testing_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/Test_Accuracy.png)
 
 <!-- Misclassified-Images -->
 ## Misclassified Images
 - 25 misclassified images captured on final test epoch are as below
 
-![Misclassified](TBD)
+![Misclassified](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/Misclassified_Imgs.png)
 
 <!-- Findings -->
 ## Findings
