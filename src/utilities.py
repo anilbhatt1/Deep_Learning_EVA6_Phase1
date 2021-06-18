@@ -44,10 +44,16 @@ class unnorm_img():
 
         return img
 
+    def unnorm_albumented(img):
+        for i in range(img.shape[0]):
+            img[i] = (img[i]*channels_stdev[i])+channels_mean[i]
+            img = img.permute(1, 2, 0)
+        return img
+
 class plots():
 
     # 5 * 5 images
-    def plot_misclassified(test_stats, num_images, title, class_names, fig_size, unnorm_mispred):
+    def plot_misclassified(self, test_stats, num_images, title, class_names, fig_size, unnorm_mispred):
 
         figure = plt.figure(figsize=fig_size)
         print(f'** Plotting misclassified images from last epoch for {title} **')
