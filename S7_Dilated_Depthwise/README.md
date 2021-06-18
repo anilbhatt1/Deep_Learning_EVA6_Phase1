@@ -10,7 +10,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-# Image Classification on CIFAR-10 using Dilated Convolution, Depthwise Convolution and normal convolutions (3x3, 1x1)
+## Image Classification on CIFAR-10 using Dilated Convolution, Depthwise Convolution and normal convolutions (3x3, 1x1)
 ________
 
 <!-- TABLE OF CONTENTS -->
@@ -33,12 +33,14 @@ ________
 
 <!-- Code -->
 ## Code
+- **Dataset Used** : CIFAR-10 , Image Resolution : 32x32x3
 - For Training details, refer below colab notebook location:
 https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S6_Batch_Normalization/EVA6_S6_V3.ipynb
 - **s7_model.py**
 	- Location : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/src/s7_model.py
 	- Please refer network diagram below to understand the architecture.
 	- **Parameters** :99,744
+	- Receptive Field Arrived is 61. Please refer https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/RF%20Calculator.xlsx for receptive field calculations.
 	- L1 losses were used while training the model. L1_factor=0.0005
 	- Optimizer used was SGD with momentum of 0.8
 	- OneCycleLR was used with initial lr of 0.025 with a max_lr of 0.2
