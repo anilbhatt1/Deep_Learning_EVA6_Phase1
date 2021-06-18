@@ -85,11 +85,11 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Dep
 ## Loss And Accuracy Plots
 - Training Loss
 
-![Training_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/Train_Losses.jpg)
+![Training_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/Train_Losses.png)
 
 - Training Accuracy
 
-![Training_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/Test_Accuracy.pngTrain_Accuracy.jpg)
+![Training_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/Train_Accuracy.png)
 
 - Testing Loss
 
