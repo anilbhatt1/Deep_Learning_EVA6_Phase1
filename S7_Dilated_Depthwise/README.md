@@ -79,7 +79,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Dep
 <!-- Network-Diagram -->
 ## Network Diagram
 - CNN network architecture is as shown below.
-![Network](TBD)
+![Network](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/Network%20Diag.jpg)
 
 <!-- Loss-And-Accuracy-Plots -->
 ## Loss And Accuracy Plots
@@ -107,13 +107,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Dep
 
 <!-- Findings -->
 ## Findings
-- L1 value of 0.001 and L2 value of 0.005 was used.
-- Group Norm with L1 is better that Batch Norm with L1 + L2 as well as Layer Norm with L2.
-- Group Norm with L1 was consistently hitting ~99.4% test accuracy in last epochs. Accuracies for last 7 epochs : [99.4, 99.41, 99.34, 99.41, 99.38, 99.4, 99.4]
-- Other 2 models where hovering around ~99.3% towards last few epochs.
-- Reason for Group Norm with L1 being better could be because of L1 regularization. L1 regularization might have helped to take care of outliers thereby increasing accuracy.
-- MNIST being a simple dataset doesn't require L1 and L2 regularization as ~99.4 was achieved without these.
-- Max test accuracy achieved : 99.41 for Group Norm with L1.
+- 
 
 <!-- LICENSE -->
 ## License
