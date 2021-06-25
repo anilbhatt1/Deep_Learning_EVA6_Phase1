@@ -46,7 +46,7 @@ class unnorm_img():
 
     def unnorm_albumented(self, img):
         for i in range(img.shape[0]):
-            img[i] = (img[i]*self.stdev[i])+self.mean[i]
+            img[i] = (img[i]*channels_stdev[i])+channels_mean[i]
             img = img.permute(1, 2, 0)
         return img
 
@@ -71,3 +71,12 @@ class plots():
                 plt.text(2, -1, s)
         else:
             print(f'Unable to plot - Less than {num_images} images, only have {len(test_stats.img)} images')
+
+
+counters = {'train_loss':[], 'train_acc':[], 'test_loss':[], 'test_acc':[], 'mis_img':[], 'mis_pred':[], 'mis_lbl':[]}
+
+def ctr():
+    def inner(value, type):
+        counters[type].append(value)
+        return counters
+    return inner
