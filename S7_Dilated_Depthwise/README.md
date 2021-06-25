@@ -38,6 +38,7 @@ ________
 https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/EVA6_S7_Dilated_Albumentation_V2.ipynb
 - **s7_model.py**
 	- Location : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/src/s7_model.py
+	- Model used : **S7_CNNModel**
 	- Please refer network diagram below to understand the architecture.
 	- **Parameters** :99,744
 	- Model trained for 200 epochs and achieved 87.17% test accuracy
@@ -62,8 +63,12 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Dep
 - **utilities.py**
 	- Location : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/src/utilities.py
 	- Class : **stats_collector**
-		- stats_collector is used to collect train & test statistics
-		- It also collects misclassified images along with their predicted & actual labels
+		- stats_collector is used to collect train & test statistics.
+		- It also collects misclassified images along with their predicted & actual labels.
+	- Function : **ctr**
+		- Closure function to collect train & test statistics.
+		- It also collects misclassified images along with their predicted & actual labels.
+		- However, this was used only to train depthwise convolution model (S7_CNNModel_mixed). Stats presented in this Readme was collected using **stats_collector** while training depthwise separable convolution model (S7_CNNModel).
 - **Alb_transforms.py**
   - Location : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/src/Alb_transforms.py
   - Albumentations version 1.0.0 was installed. Default version 0.9.2 was not having **CoarseDropout**
@@ -113,7 +118,14 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Dep
 
 <!-- Findings -->
 ## Findings
-- 
+- Model is under-fitting (train accuracy consistently less than test accuracy) mainly because of the image augmentations that we applied. This makes training harder while testing simpler as we dont apply these augmentations during testing.
+- It is better to use depthwise separable convolution (i.e. depthwise followed by pointwise) than depthwise convolution (depthwise alone) as former converges faster. 
+	- A seperate model S7_CNNModel_mixed was created with depthwise convolution whenever channels remain same & depthwise separable convolutions only when channels change.
+	- However even after 250 epochs losses didnt coverge to the level that depthwise separable convolution model (S7_CNNModel) was able to converge.
+	- Depthwise separable convolution model (S7_CNNModel) with 99,744 parameters reached a test loss of 0.3819 and test accuracy of 87.17% on 200th epoch.
+	- Whereas depthwise convolution model (S7_CNNModel_mixed) with 99,200 parameters could only reach a test loss of 0.4211 and test accuracy of 86.23% on 246th epoch.
+	- Logs for depthwise separable convolution model (S7_CNNModel) can be found from https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/EVA6_S7_Dilated_Albumentation_V2.ipynb
+	- Logs for depthwise convolution model (S7_CNNModel_mixed) can be found from https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/EVA6_S7_Dilated_Albumentation_V6.ipynb
 
 <!-- LICENSE -->
 ## License
