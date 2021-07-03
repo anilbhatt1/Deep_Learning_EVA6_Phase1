@@ -10,7 +10,7 @@ from utilities import *
 from train_loss import *
 from test_loss import *
 
-def run_main():
+def run_main(num_epochs):
 
     # Data Augmentation & data loader stuff to be handled
     trainloader, testloader = CIFAR10_data_prep()
@@ -37,7 +37,7 @@ def run_main():
     tb_writer.add_graph(model, img)
 
     # Training the model for fixed epochs
-    EPOCHS = 40
+    EPOCHS = num_epochs
     model = ResNet18().to(device)
     optimizer = optim.SGD(model.parameters(), lr=0.025, momentum=0.8, weight_decay = 0)
     scheduler = ReduceLROnPlateau(optimizer, mode = 'min', factor = 0.1, min_lr=1e-7, patience = 4, verbose=True)
