@@ -15,7 +15,6 @@ cuda = torch.cuda.is_available()
 import datetime
 from torch.utils.tensorboard import SummaryWriter
 print(f'Albumentations Version : {A.__version__}, Pytorch Version : {torch.__version__}, cuda:{cuda}')
-%load_ext tensorboard
 
 from src.models import *
 from src.utilities import *
