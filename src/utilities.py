@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import torch
 import torchvision
+import torch.nn.functional as F
 from torchvision import datasets, transforms
 from torch.utils.tensorboard import SummaryWriter
 import matplotlib.pyplot as plt
