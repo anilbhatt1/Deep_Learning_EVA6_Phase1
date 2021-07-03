@@ -14,12 +14,11 @@ import albumentations as A
 cuda = torch.cuda.is_available()
 import datetime
 from torch.utils.tensorboard import SummaryWriter
-print(f'Albumentations Version : {A.__version__}, Pytorch Version : {torch.__version__}, cuda:{cuda}')
 
-from src.models import *
-from src.utilities import *
-from src.train_loss import *
-from src.test_loss import *
+from models import *
+from utilities import *
+from train_loss import *
+from test_loss import *
 
 # Data Augmentation & data loader stuff to be handled
 trainloader, testloader = CIFAR10_data_prep()
