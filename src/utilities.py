@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import albumentations as A
 
 cuda = torch.cuda.is_available()
+device = torch.device("cuda" if cuda else "cpu")
 
 class Alb_trans:
     """
