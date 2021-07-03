@@ -1,23 +1,11 @@
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
-import torchvision
-from torchvision import datasets, transforms
-import numpy as np
-import cv2
-import PIL
-from PIL import Image as img
-from tqdm import tqdm
 import matplotlib.pyplot as plt
-#import albumentations as A
 cuda = torch.cuda.is_available()
-import datetime
-from torch.utils.tensorboard import SummaryWriter
 from torchsummary import summary
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
-from models import *
+from s8_resnet_cifar10_model import *
 from utilities import *
 from train_loss import *
 from test_loss import *
