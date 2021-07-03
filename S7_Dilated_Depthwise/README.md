@@ -68,7 +68,8 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Dep
 	- Function : **ctr**
 		- Closure function to collect train & test statistics.
 		- It also collects misclassified images along with their predicted & actual labels.
-		- However, this was used only to train depthwise convolution model (S7_CNNModel_mixed). Stats presented in this Readme was collected using **stats_collector** while training depthwise separable convolution model (S7_CNNModel).
+		- However, this was used only to train depthwise convolution model (S7_CNNModel_mixed). Notebook : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Depthwise/EVA6_S7_Dilated_Albumentation_V6.ipynb
+		- Stats presented in this Readme was collected using **stats_collector** while training depthwise separable convolution model (S7_CNNModel).
 - **Alb_transforms.py**
   - Location : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/src/Alb_transforms.py
   - Albumentations version 1.0.0 was installed. Default version 0.9.2 was not having **CoarseDropout**
