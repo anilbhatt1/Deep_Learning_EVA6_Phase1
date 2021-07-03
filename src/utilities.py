@@ -102,7 +102,7 @@ class cifar10_plots():
             idx = np.random.choice(np.where(labels[:] == i)[0], num_images)
             lst.extend(images[idx])
         disp_grid  = torchvision.utils.make_grid(lst, 5)
-        disp_grid1 = self.unnormalize_CIFAR(disp_grid)
+        disp_grid1 = self.unnormalize_cifar10(disp_grid)
         self.tb_writer.add_image('Train-Images', disp_grid, 0)
 
         plt.figure(figsize=(14, 14))
@@ -132,7 +132,7 @@ class cifar10_plots():
             for j in range(0, 5):
                 k = j + a
                 img_ = images[k].cpu()
-                img = np.uint8(255 * self.unnormalize_CIFAR(img_.view(image_size)))
+                img = np.uint8(255 * self.unnormalize_cifar10(img_.view(image_size)))
                 if i == 0:
                     ax = plt.subplot(r, c, j + 2)
                     ax.text(0.1, 0.2, f"pred={class_names[predicted[k][0]]}\nactual={class_names[labels[k]]}",fontsize=10)
@@ -167,7 +167,7 @@ class cifar10_plots():
             for i in range(num_images):
                 plt.subplot(5, 5, i + 1)
                 plt.axis(False)
-                unnorm_img = self.unnormalize(counters['mis_img'][i].cpu())
+                unnorm_img = self.unnormalize_cifar10(counters['mis_img'][i].cpu())
                 plt.imshow(unnorm_img, interpolation='none')
                 prediction = class_names_dict.get(counters['mis_pred'][i])
                 actual     = class_names_dict.get(counters['mis_lbl'][i])
