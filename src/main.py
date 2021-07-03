@@ -71,17 +71,21 @@ def run_main(num_epochs):
     plt.figure(figsize=(12, 8))
     plt.title(f"Train Losses")
     plt.plot(details['train_loss'])
+    plt.savefig(f'{img_save_path}train_loss.jpg')
 
     plt.figure(figsize=(12,8))
     plt.title(f"Train Accuracy")
     plt.plot(details['train_acc'])
+    plt.savefig(f'{img_save_path}train_acc.jpg')
 
     plt.figure(figsize=(12,8))
     plt.title(f"Test Losses")
     plt.plot(details['test_loss'])
+    plt.savefig(f'{img_save_path}test_loss.jpg')
 
     plt.figure(figsize=(12,8))
     plt.title(f"Test Accuracy")
     plt.plot(details['test_acc'])
+    plt.savefig(f'{img_save_path}test_acc.jpg')
 
     return f' run_main() ended successfully '

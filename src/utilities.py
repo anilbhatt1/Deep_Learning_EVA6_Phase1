@@ -151,10 +151,10 @@ class cifar10_plots():
                 plt.subplot(r, c, (i + 2) * c + j + 2)
                 plt.imshow(superimposed_img, interpolation='bilinear')
                 plt.axis('off')
-        plt.savefig(f'{self.img_save_path}{fig_name}{a}_{b}.jpg')
-        img_arr = plt.imread(f'{self.img_save_path}Gradcam_Imgs_{a}_{b}.jpg')
+        plt.savefig(f'{self.img_save_path}{fig_name}{a+1}_{b}.jpg')
+        img_arr = plt.imread(f'{self.img_save_path}{fig_name}{a+1}_{b}.jpg')
         img_arr = img_arr.transpose(2, 0, 1)
-        self.tb_writer.add_image(f'GradCam-Images/Misclassified_Imgs_{a}_{b}', img_arr, 0)
+        self.tb_writer.add_image(f'GradCam-Images/Misclassified_Imgs_{a+1}_{b}', img_arr, 0)
         plt.show()
 
     def plot_cifar10_misclassified(self, counters, num_images):
