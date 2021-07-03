@@ -126,6 +126,7 @@ class train_losses():
 
         train_acc = round((100. * correct / len(self.train_loader.dataset)), 2)
         self.stats(train_acc, 'train_acc')
+        tb_writer.add_scalar('Acc/Train', train_acc, global_step=current_epoch)
 
         print(
             f'Train set: Epoch : {current_epoch}/{self.total_epochs} Average loss: {train_loss :.4f}, Train Accuracy: {train_acc}')

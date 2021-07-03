@@ -223,9 +223,9 @@ def CIFAR10_data_prep():
     return trainloader, testloader
 
 def create_tensorboard_writer(*args):
-    if args is not None:
+    if args:
         tb_events_path = args[0]
-        tb_writer = SummaryWriter(logdir=tb_events_path)
+        tb_writer = SummaryWriter(log_dir=tb_events_path)
     else:
         tb_writer = SummaryWriter()
     return tb_writer
