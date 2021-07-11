@@ -93,7 +93,7 @@ def run_main(num_epochs):
     return f' run_main() ended successfully '
 
 
-def s9_run_main(num_epochs):
+def s9_run_main(num_epochs, maxlr):
 
     # Data Augmentation & data loader stuff to be handled
     batch_size = 512
@@ -120,11 +120,14 @@ def s9_run_main(num_epochs):
     img = img.to(device)
     tb_writer.add_graph(model, img)
 
+    # Note : Plot not coming out correctly when ran via module. Hence will find maxlr outside the main & pass it as arg
+
     # Finding Max LR using range test
-    model = ResNet_C().to("cuda")
-    lrfinder = LRRangeFinder(model=model, epochs=3, start_lr=1e-2, end_lr=1e-1, tb_writer= tb_writer,
-                             dataloader=trainloader, device=device, img_save_path=img_save_path)
-    max_lr = lrfinder.findLR()
+    #model = ResNet_C().to("cuda")
+    #lrfinder = LRRangeFinder(model=model, epochs=3, start_lr=1e-2, end_lr=1e-1, tb_writer= tb_writer,
+    #                         dataloader=trainloader, device=device, img_save_path=img_save_path)
+    #max_lr = lrfinder.findLR()
+    max_lr = maxlr
     print(max_lr)
 
     # Training the model for fixed epochs
