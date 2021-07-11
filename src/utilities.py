@@ -432,7 +432,7 @@ class LRRangeFinder():
         plt.xscale("log")
         plt.plot(self.lr, self.loss)
         plt.savefig(f'{self.img_save_path}LRRange_Test.jpg')
-        plt.show()
+        #plt.show()
 
         return (self.lr[self.loss.index(min(self.loss))])
 

@@ -121,7 +121,9 @@ def s9_run_main(num_epochs):
     tb_writer.add_graph(model, img)
 
     # Finding Max LR using range test
-    lrfinder = LRRangeFinder(model=model, epochs=3, start_lr=1e-2, end_lr=1e-1, tb_writer= tb_writer, dataloader=trainloader, device=device, img_save_path=img_save_path)
+    model = ResNet_C().to("cuda")
+    lrfinder = LRRangeFinder(model=model, epochs=3, start_lr=1e-2, end_lr=1e-1, tb_writer= tb_writer,
+                             dataloader=trainloader, device=device, img_save_path=img_save_path)
     max_lr = lrfinder.findLR()
     print(max_lr)
 
