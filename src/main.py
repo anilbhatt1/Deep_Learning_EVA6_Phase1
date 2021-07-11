@@ -96,7 +96,8 @@ def run_main(num_epochs):
 def s9_run_main(num_epochs):
 
     # Data Augmentation & data loader stuff to be handled
-    trainloader, testloader = S9_CIFAR10_data_prep()
+    batch_size = 512
+    trainloader, testloader = S9_CIFAR10_data_prep(batch_size)
 
     # Creating tensorboard writer
     img_save_path = '/content/gdrive/MyDrive/EVA6_P1_S9/'
@@ -132,8 +133,8 @@ def s9_run_main(num_epochs):
     stats = ctr()
     train = train_losses(model, device, trainloader, stats, optimizer, EPOCHS)
     test  = test_losses(model, device, testloader, stats, EPOCHS)
-    print("Initial LR : ", scheduler.get_lr())
-    print("Total steps : ", scheduler.total_steps)
+    print(f'Initial LR : {scheduler.get_lr()}')
+    print(f'Total steps: {scheduler.total_steps}')
 
     for epoch in range(EPOCHS):
         print(f'EPOCH: {epoch}')

@@ -226,11 +226,11 @@ def CIFAR10_data_prep():
 
     return trainloader, testloader
 
-def S9_CIFAR10_data_prep():
+def S9_CIFAR10_data_prep(batch):
     if cuda:
         torch.cuda.manual_seed(1)
 
-    dataloader_args = dict(shuffle=True, batch_size=128, num_workers=2, pin_memory=True) if cuda else dict(shuffle=True,
+    dataloader_args = dict(shuffle=True, batch_size=batch, num_workers=2, pin_memory=True) if cuda else dict(shuffle=True,
                                                                                                            batch_size=64)
 
     channels_mean  = [0.49139968, 0.48215841, 0.44653091]
