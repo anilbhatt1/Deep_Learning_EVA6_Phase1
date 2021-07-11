@@ -7,6 +7,8 @@ from torchvision import datasets, transforms
 from torch.utils.tensorboard import SummaryWriter
 import matplotlib.pyplot as plt
 import albumentations as A
+import math
+from tqdm.notebook import trange, tqdm
 
 cuda = torch.cuda.is_available()
 device = torch.device("cuda" if cuda else "cpu")
@@ -182,7 +184,8 @@ class cifar10_plots():
         else:
             print(f'Unable to plot - Less than {num_images} images')
 
-counters = {'train_loss':[], 'train_acc':[], 'test_loss':[], 'test_acc':[], 'mis_img':[], 'mis_pred':[], 'mis_lbl':[]}
+
+counters = {'train_loss':[], 'train_acc':[], 'test_loss':[], 'test_acc':[], 'mis_img':[], 'mis_pred':[], 'mis_lbl':[], 'train_lr' : []}
 
 def ctr():
     def inner(value, type):
@@ -204,6 +207,36 @@ def CIFAR10_data_prep():
     train_transforms = Alb_trans([A.Rotate((-5, 5)),
                                   A.RandomCrop(32, 32),
                                   A.Normalize(mean=channels_mean, std=channels_stdev),
+                                  A.Sequential([A.PadIfNeeded(min_height=40, min_width=40,
+                                                              border_mode=cv2.BORDER_CONSTANT,
+                                                              value=(0.49139968, 0.48215841, 0.44653091)),
+                                                A.RandomCrop(32, 32)], p=1.0),
+                                  A.Cutout(num_holes=1, max_h_size=16, max_w_size=16),
+                                  ])
+
+    train_data = datasets.CIFAR10('./data', train=True, download=True, transform=train_transforms)
+    test_data  = datasets.CIFAR10('./data', train=False, download=True, transform=test_transforms)
+
+    # train dataloader
+    trainloader = torch.utils.data.DataLoader(train_data, **dataloader_args)
+
+    # test dataloader
+    testloader = torch.utils.data.DataLoader(test_data, **dataloader_args)
+
+    return trainloader, testloader
+
+def S9_CIFAR10_data_prep():
+    if cuda:
+        torch.cuda.manual_seed(1)
+
+    dataloader_args = dict(shuffle=True, batch_size=128, num_workers=2, pin_memory=True) if cuda else dict(shuffle=True,
+                                                                                                           batch_size=64)
+
+    channels_mean  = [0.49139968, 0.48215841, 0.44653091]
+    channels_stdev = [0.24703223, 0.24348513, 0.26158784]
+
+    test_transforms  = Alb_trans([A.Normalize(mean=channels_mean, std=channels_stdev), ])
+    train_transforms = Alb_trans([A.Normalize(mean=channels_mean, std=channels_stdev),
                                   A.Sequential([A.PadIfNeeded(min_height=40, min_width=40,
                                                               border_mode=cv2.BORDER_CONSTANT,
                                                               value=(0.49139968, 0.48215841, 0.44653091)),
@@ -333,6 +366,75 @@ def GRADCAM(images, labels, model, target_layers):
     # remove hooks when done
     gcam.remove_hook()
     return layers, probs, ids
+
+# LRRangeFinder to find max_lr to be supplied to OneCycleLR policy
+class LRRangeFinder():
+    def __init__(self, model, epochs, start_lr, end_lr, dataloader, device):
+        self.model = model
+        self.epochs = epochs
+        self.start_lr = start_lr
+        self.end_lr = end_lr
+        self.loss = []
+        self.lr = []
+        self.dataloader = dataloader
+        self.device = device
+
+    def findLR(self):
+        smoothing = 0.05
+
+        # Set up optimizer and loss function for the experiment for our Resnet Model
+        optimizer = torch.optim.SGD(self.model.parameters(), self.start_lr)
+        criterion = nn.NLLLoss()
+        lr_lambda = lambda x: math.exp(x * math.log(self.end_lr / self.start_lr) / (self.epochs * len(self.dataloader)))
+        scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
+
+        for i in trange(self.epochs):
+            print(f'epoch : {i}')
+            for inputs, labels in tqdm(self.dataloader):
+
+                # Send to device
+                inputs = inputs.to(self.device)
+                labels = labels.to(self.device)
+
+                # Training mode and zero gradients
+                self.model.train()
+                optimizer.zero_grad()
+
+                # Get outputs to calc loss
+                outputs = self.model(inputs)
+                loss = criterion(outputs, labels)
+
+                # Backward pass
+                loss.backward()
+                optimizer.step()
+
+                # Update LR
+                scheduler.step()
+                lr_step = optimizer.state_dict()["param_groups"][0]["lr"]
+                self.lr.append(lr_step)
+
+                # smooth the loss
+                if self.loss:
+                    loss = smoothing * loss + (1 - smoothing) * self.loss[-1]
+                    self.loss.append(loss)
+                else:
+                    self.loss.append(loss)
+
+        plt.ylabel("loss")
+        plt.xlabel("Learning Rate")
+        plt.xscale("log")
+        plt.plot(self.lr, self.loss)
+        plt.show()
+
+        return (self.lr[self.loss.index(min(self.loss))])
+
+def plot_onecyclelr_curve(counters):
+    figure = plt.figure(figsize=(8, 5))
+    plt.xlabel("Iterations")
+    plt.ylabel("Learning Rate")
+    plt.plot(counters['train_lr'])
+    plt.xticks(np.arange(0, len(counters['train_lr']), step=250))
+    plt.show()
 
 
 
