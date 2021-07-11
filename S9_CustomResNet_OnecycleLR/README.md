@@ -36,11 +36,11 @@ ________
 - **Dataset Used** : CIFAR-10 , Image Resolution : 32x32x3
 - For Training details, refer below colab notebook locations:
     - Completely modularized - only calls main.py in colab notebook
-https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/EVA6_S9_Custom_Resnet_V3.ipynb
+https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/EVA6_S9_Custom_Resnet__V3.ipynb
     - Partially modularized  - Calls few functions & other py files in colab notebook
-https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/EVA6_S9_Custom_Resnet_V2.ipynb
+https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/EVA6_S9_Custom_Resnet__V2.ipynb
     - Non-modularized - All functions and classes defined inside colab notebook iteslf
-https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/EVA6_S9_Custom_Resnet_V1.ipynb
+https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/EVA6_S9_Custom_Resnet__V1.ipynb
 - **main.py**
     - Main module from which everything else (listed below) were invoked.
 - **models.py**    
@@ -48,7 +48,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNe
 	- Model used : **ResNet_C**
 	- Resnet18 model was customized. Refer network diagram below for more details.
 	- **Parameters** :6,573,120
-	- Model trained for 24 epochs with OneCycleLR policy.
+	- Model trained for 24 epochs with OneCycleLR policy and achieved 89.5% accuracy.
 	- Max LR was achieved on 5th epoch.
     - L1 losses were used while training the model. L1_factor=0.0005
 	- Optimizer used was SGD with momentum of 0.9
@@ -104,7 +104,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNe
 
 <!-- Network-Diagram-->
 ## Network Diagram
-- Network Diagrame is ass below
+- Network Diagram is as below
 ![Network]()
 
 <!-- Loss-And-Accuracy-Plots -->
@@ -125,6 +125,13 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNe
 
 ![Testing_accuracy](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/Test_Accuracy_Tb.jpg)
 
+- LR Range-Test Curve
+
+![RangeTest_Curve](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/LRRange_Test.jpg)
+
+- OneCycleLR Curve
+![Onecycle](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/OnecycleLR_Curve_TB.jpg)
+
 <!-- Misclassified-Images -->
 ## Misclassified Images
 - 20 misclassified images captured on final test epoch are as below
@@ -132,7 +139,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNe
 ![Misclassified](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/Test_Misclass_Imgs.jpg)
 
 - Tensorboard events for reference:
-https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/events.out.tfevents.1625320205.45467bfb0ce8.62.0
+https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/events.out.tfevents.1626002789.698a263faa78.61.1
 
 <!-- LICENSE -->
 ## License
