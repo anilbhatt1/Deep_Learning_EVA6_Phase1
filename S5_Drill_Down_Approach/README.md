@@ -21,7 +21,6 @@ ________
 * [Skeleton](#Skeleton)
 * [Modified V1](#Modified-V1)
 * [Modified V2](#Modified-V2)
-* [Results](#Results)
 * [License](#license)
 * [Mentor](#mentor)
 
