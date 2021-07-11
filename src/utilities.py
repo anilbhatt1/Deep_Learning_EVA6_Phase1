@@ -370,15 +370,17 @@ def GRADCAM(images, labels, model, target_layers):
 
 # LRRangeFinder to find max_lr to be supplied to OneCycleLR policy
 class LRRangeFinder():
-    def __init__(self, model, epochs, start_lr, end_lr, dataloader, device):
+    def __init__(self, model, epochs, start_lr, end_lr, tb_writer, dataloader, device, img_save_path):
         self.model = model
         self.epochs = epochs
         self.start_lr = start_lr
         self.end_lr = end_lr
         self.loss = []
         self.lr = []
+        self.tb_writer = tb_writer
         self.dataloader = dataloader
         self.device = device
+        self.img_save_path = img_save_path
 
     def findLR(self):
         smoothing = 0.05
@@ -389,8 +391,9 @@ class LRRangeFinder():
         lr_lambda = lambda x: math.exp(x * math.log(self.end_lr / self.start_lr) / (self.epochs * len(self.dataloader)))
         scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
 
-        for i in trange(self.epochs):
-            print(f'epoch : {i}')
+        for epoch in trange(self.epochs):
+            print(f'epoch : {epoch}')
+            batch_idx = 0
             for inputs, labels in tqdm(self.dataloader):
 
                 # Send to device
@@ -413,6 +416,8 @@ class LRRangeFinder():
                 scheduler.step()
                 lr_step = optimizer.state_dict()["param_groups"][0]["lr"]
                 self.lr.append(lr_step)
+                iter = epoch * len(self.dataloader) + (batch_idx + 1)  # To find the iteration at which training is
+                self.tb_writer.add_scalar('Range_Test', lr_step, global_step=iter)
 
                 # smooth the loss
                 if self.loss:
@@ -420,21 +425,24 @@ class LRRangeFinder():
                     self.loss.append(loss)
                 else:
                     self.loss.append(loss)
+                batch_idx += 1
 
         plt.ylabel("loss")
         plt.xlabel("Learning Rate")
         plt.xscale("log")
         plt.plot(self.lr, self.loss)
+        plt.savefig(f'{self.img_save_path}LRRange_Test.jpg')
         plt.show()
 
         return (self.lr[self.loss.index(min(self.loss))])
 
-def plot_onecyclelr_curve(counters):
+def plot_onecyclelr_curve(counters, img_save_path):
     figure = plt.figure(figsize=(8, 5))
     plt.xlabel("Iterations")
     plt.ylabel("Learning Rate")
     plt.plot(counters['train_lr'])
     plt.xticks(np.arange(0, len(counters['train_lr']), step=250))
+    plt.savefig(f'{img_save_path}OnecycleLR_Curve.jpg')
     plt.show()
 
 
