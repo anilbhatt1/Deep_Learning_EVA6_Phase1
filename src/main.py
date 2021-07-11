@@ -144,7 +144,7 @@ def s9_run_main(num_epochs):
     details = counters
 
     # Plot OneCycle-LR Curve
-    plot_onecyclelr_curve(details)
+    plot_onecyclelr_curve(details, img_save_path)
 
     # Displaying 20 misclassified images
     num_images = 25
