@@ -1,6 +1,6 @@
 # Computer Vision : EVA6_Phase1
 
-- This repository will hold the source code for learning belonging to Extensive Vision AI - 6th edition - Phase 1.
+- This repository will hold the source code for modules covered in Extensive Vision AI : 6th edition - Phase 1.
 - Source code will be updated in relevant folders which will have separate README files with elaborate descriptions.
 - Brief details of each sub-repository is as listed below:
 - **S3_MNIST_Sum_of_Digits**
