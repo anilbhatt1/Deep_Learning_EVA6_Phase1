@@ -121,7 +121,7 @@ def s9_run_main(num_epochs):
     tb_writer.add_graph(model, img)
 
     # Finding Max LR using range test
-    lrfinder = LRRangeFinder(model=model, epochs=3, start_lr=1e-2, end_lr=1e-1, dataloader=trainloader, device=device)
+    lrfinder = LRRangeFinder(model=model, epochs=3, start_lr=1e-2, end_lr=1e-1, tb_writer= tb_writer, dataloader=trainloader, device=device, img_save_path=img_save_path)
     max_lr = lrfinder.findLR()
     print(max_lr)
 
@@ -137,7 +137,7 @@ def s9_run_main(num_epochs):
     print(f'Total steps: {scheduler.total_steps}')
 
     for epoch in range(EPOCHS):
-        print(f'EPOCH: {epoch}')
+        print(f'EPOCH: {epoch+1}')
         train.s9_train(epoch, scheduler, tb_writer, L1_factor=0.0005)
         test.s9_test(epoch, tb_writer)
 
