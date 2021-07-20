@@ -205,8 +205,7 @@ def s10_run_main(num_epochs):
     EPOCHS = num_epochs
     model = ResNet18_TinyImageNet().to(device)
     optimizer = optim.SGD(model.parameters(), lr=0.25, momentum=0.9, weight_decay=1e-4)
-    scheduler = OneCycleLR(optimizer, max_lr=0.25, steps_per_epoch=len(trainloader), epochs=EPOCHS,
-                           anneal_strategy='linear', pct_start=0.5, div_factor=10, final_div_factor=1)
+    scheduler = OneCycleLR(optimizer, max_lr=0.25, steps_per_epoch=len(trainloader), epochs=EPOCHS,anneal_strategy='linear', pct_start=0.5, div_factor=10, final_div_factor=1)
     stats = ctr()
     train = train_losses(model, device, trainloader, stats, optimizer, EPOCHS)
     test = test_losses(model, device, testloader, stats, EPOCHS)
