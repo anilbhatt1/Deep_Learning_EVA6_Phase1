@@ -178,13 +178,13 @@ def s9_run_main(num_epochs, maxlr):
 
     return f' run_main() ended successfully '
 
-def s10_run_main(num_epochs):
+def s10_run_main(num_epochs, path, img_save_path):
 
-    path = '/content/tiny-imagenet-200/'
+    path = path
     batch = 256
     trainloader, testloader, classes = S10_Tinyimagenet_data_prep(batch, path)
 
-    img_save_path = '/content/gdrive/MyDrive/EVA6_P1_S10/'
+    img_save_path = img_save_path
 
     tb_writer = create_tensorboard_writer(img_save_path)
 
