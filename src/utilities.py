@@ -219,8 +219,10 @@ class tiny_imagenet_plots:
 
             img_unnorm = self.unnormalize_np_tensor(images[idx])
             plt.imshow(img_unnorm)
-            self.tb_writer.add_image(f'Train-Images/{idx +1}', images[idx], idx + 1)
         plt.savefig(f'{self.img_save_path}{fig_name}.jpg')
+        train_arr = plt.imread(f'{self.img_save_path}{fig_name}.jpg')
+        train_arr = train_arr.transpose(2, 0, 1)
+        self.tb_writer.add_image(f'Train-Images', train_arr, 0)
 
     def plot_tinyimagenet_misclassified(self, counters, num_images, classes):
 
