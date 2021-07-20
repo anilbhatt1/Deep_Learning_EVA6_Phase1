@@ -242,7 +242,7 @@ class tiny_imagenet_plots:
                 plt.imshow(unnorm_img, interpolation='none')
                 prediction = class_names_dict.get(counters['mis_pred'][i])
                 actual = class_names_dict.get(counters['mis_lbl'][i])
-                s = "p=" + str(prediction) + "a=" + str(actual)
+                s = "p=" + str(prediction) + ", a=" + str(actual)
                 plt.text(2, -1, s)
             plt.savefig(f'{self.img_save_path}{fig_name}.jpg')
             mis_arr = plt.imread(f'{self.img_save_path}{fig_name}.jpg')
