@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import albumentations as A
 import math
 from tqdm.notebook import trange, tqdm
+from PIL import Image
 
 cuda = torch.cuda.is_available()
 device = torch.device("cuda" if cuda else "cpu")
@@ -163,8 +164,7 @@ class cifar10_plots():
     def plot_cifar10_misclassified(self, counters, num_images):
 
         fig_name = 'Test_Misclass_Imgs'
-        fig_size = (12, 12)
-        figure = plt.figure(figsize=fig_size)
+        figure = plt.figure(figsize=(12, 12))
         print(f'** Plotting misclassified test images from last epoch for CIFAR-10 **')
         print('\n')
         class_names_dict = {0:'plane', 1:'automob', 2:'bird', 3:'cat',4:'deer', 5:'dog', 6:'frog', 7:'horse', 8:'ship', 9:'truck'}
@@ -185,6 +185,65 @@ class cifar10_plots():
         else:
             print(f'Unable to plot - Less than {num_images} images')
 
+class tiny_imagenet_plots:
+
+    def __init__(self, img_save_path, tb_writer):
+        self.channels_mean  = [0.485, 0.456, 0.406]
+        self.channels_stdev = [0.229, 0.224, 0.225]
+        self.img_save_path  = img_save_path
+        self.tb_writer      = tb_writer
+
+    def unnormalize_np_tensor(self, img):
+        for i in range(img.shape[0]):
+            img[i] = (img[i] * self.channels_stdev[i]) + self.channels_mean[i]
+
+        if isinstance(img, np.ndarray):
+            img = np.transpose(img, (1, 2, 0))
+        elif torch.is_tensor(img):
+            img = img.permute(1, 2, 0)
+        return img
+
+    def show_train_images(self, dataiterator, classes, image_count=20):
+        images, labels = dataiterator.next()
+        images = images.numpy()  # convert images to numpy for display
+
+        # plot the images in the batch, along with the corresponding labels
+        fig = plt.figure(figsize=(25, 4))
+        fig_name = 'Train_Imgs'
+        # display images
+        for idx in np.arange(image_count):
+
+            ax = fig.add_subplot(2, image_count / 2, idx + 1, xticks=[], yticks=[])
+            ax.set_title(classes[labels[idx]].strip())
+
+            img_unnorm = self.unnormalize_np_tensor(images[idx])
+            plt.imshow(img_unnorm)
+            self.tb_writer.add_image(f'Train-Images/{idx +1}', images[idx], idx + 1)
+        plt.savefig(f'{self.img_save_path}{fig_name}.jpg')
+
+    def plot_misclassified(self, counters, num_images, class_names):
+
+        fig_name = 'Test_Misclass_Imgs'
+        figure = plt.figure(figsize=(10, 10))
+        print(f'** Plotting misclassified test images from last epoch for Tiny Imagenet **')
+        print('\n')
+        class_names_dict = class_names
+        if len(counters['mis_img']) > num_images:
+            for i in range(num_images):
+                plt.subplot(5, 5, i + 1)
+                plt.axis(False)
+                unnorm_img = self.unnormalize_np_tensor(counters['mis_img'][i].cpu())
+                plt.imshow(unnorm_img, interpolation='none')
+                prediction = class_names_dict.get(counters['mis_pred'][i])
+                #actual = class_names_dict.get(counters['mis_lbl'][i])
+                s = "p=" + str(prediction)
+                plt.text(2, -1, s)
+            plt.savefig(f'{self.img_save_path}{fig_name}.jpg')
+            mis_arr = plt.imread(f'{self.img_save_path}{fig_name}.jpg')
+            mis_arr = mis_arr.transpose(2, 0, 1)
+            self.tb_writer.add_image(f'Test-Misclassified_Imgs', mis_arr, 0)
+        else:
+            print(f'Unable to plot - Less than {num_images} images')
 
 counters = {'train_loss':[], 'train_acc':[], 'test_loss':[], 'test_acc':[], 'mis_img':[], 'mis_pred':[], 'mis_lbl':[], 'train_lr' : []}
 
@@ -444,6 +503,172 @@ def plot_onecyclelr_curve(counters, img_save_path):
     plt.xticks(np.arange(0, len(counters['train_lr']), step=250))
     plt.savefig(f'{img_save_path}OnecycleLR_Curve.jpg')
     plt.show()
+
+# TinyImagenet
+class TinyImagenetHelper:
+    '''
+    Creates 4 lists:
+    train_data   -> This will have the path of all the train images
+    train_labels -> Corresponding train labels
+    test_data    -> This will have the path of all the test images
+    test_labels  -> Corresponding test labels
+
+    word.txt content sample
+    n00001740	entity
+    n00001930	physical entity
+    n00002137	abstraction, abstract entity
+    n00002452	thing
+    n00002684	object, physical object
+
+    wnids.txt content sample
+    n02124075
+    n04067472
+    n04540053
+    n04099969
+    n07749582
+    n01641577
+    '''
+
+    def __init__(self):
+        self.count = 0
+
+    def get_id_dictionary(self, path):
+        '''
+        First 'for' loop creates a dictionary in the format as below:
+        {'n02124075': 0, 'n04067472': 1, ...}
+        There will be 200 entries corresponding to 200 classes.
+
+        Second 'for' loop modifies this dictionary to append class name as below:
+        {'n02666196': (63, 'abacus'),
+         'n02669723': (74, "academic gown, academic robe, judge's robe"),
+         'n02699494': (185, 'altar'),
+         'n02730930': (134, 'apron'),....}
+        '''
+
+        id_dict = {}
+        labels_counted = 0
+        for i, line in enumerate(open(path + '/wnids.txt', 'r')):
+            id_dict[line.replace('\n', '')] = i
+
+        for i, line in enumerate(open(path + '/words.txt', 'r')):
+            n_id, word = line.split('\t')[:2]
+            if n_id in id_dict.keys() and isinstance(id_dict[n_id],
+                                                     tuple):  # n_id in id_dict.keys() -> Omit IDs not part of tiny-imagenet
+                pass  # isinstance(id_dict[n_id], tuple) -> Bypass already populated
+            elif n_id in id_dict.keys():
+                id_dict[n_id] = (id_dict[n_id], word.replace('\n', ''))
+                labels_counted += 1
+
+            if labels_counted >= 200:
+                print('200 Labels correspoding to tiny image-net 200 mapped with their corresponding n-ids')
+                break
+
+        return id_dict
+
+    def get_train_test_labels_data(self, id_dict, path, test_split=0.3):
+
+        '''
+        Creates test and train data/labels list using id_dict created above.
+        Train images are present in /content/tiny-imagenet-200/train folder. Inside this, images are organized in folder names corresponding
+        to n_id. eg: 'n01443537/images' folder will have images corresponding to n01443537 only.
+        '''
+        train_data, test_data = [], []
+        train_labels, test_labels = [], []
+        for n_id, label in tqdm(id_dict.items()):
+            img_folder = f'{path}/train/{n_id}/images'  # eg: /content/tiny-imagenet-200/train/n01443537/images
+            test_cnt = int(len(os.listdir(img_folder)) * test_split)
+            train_cnt = int(len(os.listdir(img_folder)) - test_cnt)
+
+            assert (train_cnt + test_cnt) <= int(len(os.listdir(
+                img_folder))), f"Cnt mismatch in {img_folder} : {train_cnt}, {test_cnt}, {len(os.listdir(img_folder))}"
+
+            for cnt, img_name in enumerate(os.listdir(img_folder)):
+                if cnt < train_cnt:  # < bcoz idx starts at 0
+                    train_data.append(f'{img_folder}/{img_name}')
+                    train_labels.append(label[0])  # label will be a tuple eg: (134, 'apron'). We need only 134, so [0]
+                else:
+                    test_data.append(f'{img_folder}/{img_name}')
+                    test_labels.append(label[0])
+
+        '''
+        Utilizing validation images for testing and training. Validation image can be fetched from val_annotations.txt. 
+        Its format is as below. First column is image name & second column is n_id that is mapped to label.
+        val_9926.JPEG	n03891332	0	0	63	63
+        val_9927.JPEG	n02236044	0	2	43	63
+        '''
+        file_name = f'{path}/val/val_annotations.txt'  # /content/tiny-imagenet-200/val/val_annotations.txt
+
+        with open(file_name, 'r') as f:
+            val_cnt = len(f.readlines())
+        f.close()
+
+        test_cnt = int(val_cnt * test_split)
+        train_cnt = int(val_cnt - test_cnt)
+        for cnt, line in enumerate(open(file_name, 'r')):
+            img_name, n_id = line.split('\t')[:2]
+            if cnt < train_cnt:
+                train_data.append(f'{path}/val/images/{img_name}')
+                train_labels.append(id_dict[n_id][0])
+            else:
+                test_data.append(f'{path}/val/images/{img_name}')
+                test_labels.append(id_dict[n_id][0])
+
+        print('Data loading for train & test completed')
+        return train_data, train_labels, test_data, test_labels
+
+#Creates dataset for both train & test using transforms and train_data/train_labels or test_data/test_labels created above
+class TinyImagenetDataset:
+    """Tiny Imagenet dataset."""
+
+    def __init__(self, image_data, image_labels, transform=None):
+        self.transform = transform
+        self.image_data = image_data
+        self.image_labels = image_labels
+
+    def __len__(self):
+        return len(self.image_labels)
+
+    def __getitem__(self, idx):
+        image = np.array(Image.open(self.image_data[idx]))
+        label = self.image_labels[idx]
+
+        if self.is_grayscale_image(image):
+            image = np.stack((image,) * 3, axis=-1)
+
+        if self.transform:
+            image = self.transform(Image.fromarray(image))
+
+        return image, label
+
+    def is_grayscale_image(self, image):
+        return (len(image.shape) == 2) or (len(image.shape) == 3 and image.shape[-1] == 1)
+
+# Dataloader for tiny-imagenet. Creates trainloader and testloader.
+class Tinyimagenet_Dataloader:
+
+    def __init__(self, traindataset, testdataset, batch_size=64):
+        self.traindataset = traindataset
+        self.testdataset  = testdataset
+        self.num_workers = 2
+        self.batch_size  = batch_size
+
+        seed = 1
+        torch.manual_seed(seed)
+
+        cuda = torch.cuda.is_available()
+
+        if not cuda:
+            self.batch_size = 32
+
+        print(f'Batch_size to be used : {self.batch_size}, CUDA Available? : {cuda}')
+
+    def gettraindataloader(self):
+        return torch.utils.data.DataLoader(dataset=self.traindataset, batch_size=self.batch_size,
+                                           num_workers=self.num_workers, shuffle=True, pin_memory=True)
+
+    def gettestdataloader(self):
+        return torch.utils.data.DataLoader(dataset=self.testdataset, batch_size=self.batch_size,
+                                           num_workers=self.num_workers, shuffle=True, pin_memory=True)
 
 
 
