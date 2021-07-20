@@ -563,7 +563,7 @@ class BasicBlock_Tiny(nn.Module):
         out = F.relu(out)
         return out
 
-class ResNet_Tiny(nn.Module):
+class ResNet18_Tiny(nn.Module):
     def __init__(self, block, num_blocks, num_classes=200):
         super(ResNet_Tiny, self).__init__()
         self.in_planes = 64
@@ -596,5 +596,5 @@ class ResNet_Tiny(nn.Module):
         out = out.view(out.size(0), -1)
         return F.log_softmax(out, dim=-1)
 
-def ResNet_TinyImageNet():
-    return ResNet_Tiny(BasicBlock_Tiny, [2, 2, 2, 2])
+def ResNet18_TinyImageNet():
+    return ResNet18_Tiny(BasicBlock_Tiny, [2, 2, 2, 2])

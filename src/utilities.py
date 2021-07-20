@@ -222,13 +222,16 @@ class tiny_imagenet_plots:
             self.tb_writer.add_image(f'Train-Images/{idx +1}', images[idx], idx + 1)
         plt.savefig(f'{self.img_save_path}{fig_name}.jpg')
 
-    def plot_misclassified(self, counters, num_images, class_names):
+    def plot_tinyimagenet_misclassified(self, counters, num_images, classes):
+
+        class_names_dict = {}
+        for idx, label in enumerate(classes):
+            class_names_dict[idx] = label
 
         fig_name = 'Test_Misclass_Imgs'
         figure = plt.figure(figsize=(10, 10))
         print(f'** Plotting misclassified test images from last epoch for Tiny Imagenet **')
         print('\n')
-        class_names_dict = class_names
         if len(counters['mis_img']) > num_images:
             for i in range(num_images):
                 plt.subplot(5, 5, i + 1)
@@ -315,6 +318,40 @@ def S9_CIFAR10_data_prep(batch):
     testloader = torch.utils.data.DataLoader(test_data, **dataloader_args)
 
     return trainloader, testloader
+
+def S10_Tinyimagenet_data_prep(batch, path):
+
+    helper = TinyImagenetHelper()
+    id_dict = helper.get_id_dictionary(path=path)
+    classes = []
+    for _, values in id_dict.items():
+        classes.append(values[1].split(',')[0])
+    train_data, train_label, test_data, test_label = helper.get_train_test_labels_data(id_dict, path)
+
+    if cuda:
+        torch.cuda.manual_seed(1)
+
+    channels_mean = [0.485, 0.456, 0.406]
+    channels_stdev = [0.229, 0.224, 0.225]
+
+    test_transforms  = Alb_trans([A.Normalize(mean=channels_mean, std=channels_stdev), ])
+    train_transforms = Alb_trans([A.Rotate((-5.0, 5.0)),
+                                  A.HorizontalFlip(),
+                                  A.RGBShift(r_shift_limit=50, g_shift_limit=50, b_shift_limit=50,p=0.5),
+                                  A.Normalize(mean=channels_mean, std=channels_stdev),
+                                  A.Cutout(num_holes=1, max_h_size=16, max_w_size=16,fill_value=channels_mean),
+                                 ])
+
+    train_dataset = TinyImagenetDataset(image_data=train_data, image_labels=train_label, transform=train_transforms)
+    test_dataset  = TinyImagenetDataset(image_data=test_data, image_labels=test_label, transform=test_transforms)
+
+    batch_size = batch
+    data_loader = Tinyimagenet_Dataloader(traindataset=train_dataset, testdataset=test_dataset,batch_size=batch_size)
+
+    trainloader = data_loader.gettraindataloader()
+    testloader = data_loader.gettestdataloader()
+
+    return trainloader, testloader, classes
 
 def create_tensorboard_writer(*args):
     if args:
