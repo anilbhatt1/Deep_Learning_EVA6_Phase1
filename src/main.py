@@ -177,3 +177,71 @@ def s9_run_main(num_epochs, maxlr):
     plt.savefig(f'{img_save_path}test_acc.jpg')
 
     return f' run_main() ended successfully '
+
+def s10_run_main(num_epochs):
+
+    path = '/content/tiny-imagenet-200/'
+    batch = 256
+    trainloader, testloader, classes = S10_Tinyimagenet_data_prep(batch, path)
+
+    img_save_path = '/content/gdrive/MyDrive/EVA6_P1_S10/'
+
+    tb_writer = create_tensorboard_writer(img_save_path)
+
+    plot = tiny_imagenet_plots(img_save_path, tb_writer)
+
+    data_iterator = iter(trainloader)
+    plot.show_train_images(data_iterator, classes=classes)
+
+    use_cuda = torch.cuda.is_available()
+    device = torch.device("cuda" if use_cuda else "cpu")
+    model = ResNet18_TinyImageNet().to(device)
+    summary(model, input_size=(3, 64, 64))
+
+    img = torch.ones(1, 3, 64, 64)
+    img = img.to(device)
+    tb_writer.add_graph(model, img)
+
+    EPOCHS = num_epochs
+    model = ResNet18_TinyImageNet().to(device)
+    optimizer = optim.SGD(model.parameters(), lr=0.25, momentum=0.9, weight_decay=1e-4)
+    scheduler = OneCycleLR(optimizer, max_lr=0.25, steps_per_epoch=len(trainloader), epochs=EPOCHS,
+                           anneal_strategy='linear', pct_start=0.5, div_factor=10, final_div_factor=1)
+    stats = ctr()
+    train = train_losses(model, device, trainloader, stats, optimizer, EPOCHS)
+    test = test_losses(model, device, testloader, stats, EPOCHS)
+    print("Initial LR : ", scheduler.get_lr())
+    print("Total steps : ", scheduler.total_steps)
+
+    for epoch in range(EPOCHS):
+        print(f'EPOCH: {epoch}')
+        train.s10_train(epoch, scheduler, tb_writer, L1_factor=0.0005)
+        test.s10_test(epoch, tb_writer)
+
+    details = counters
+
+    num_images = 25
+    plot.plot_tinyimagenet_misclassified(details, num_images, classes)
+
+    # Plotting train & test accuracies and losses
+    plt.figure(figsize=(12, 8))
+    plt.title(f"Train Losses")
+    plt.plot(details['train_loss'])
+    plt.savefig(f'{img_save_path}train_loss.jpg')
+
+    plt.figure(figsize=(12,8))
+    plt.title(f"Train Accuracy")
+    plt.plot(details['train_acc'])
+    plt.savefig(f'{img_save_path}train_acc.jpg')
+
+    plt.figure(figsize=(12,8))
+    plt.title(f"Test Losses")
+    plt.plot(details['test_loss'])
+    plt.savefig(f'{img_save_path}test_loss.jpg')
+
+    plt.figure(figsize=(12,8))
+    plt.title(f"Test Accuracy")
+    plt.plot(details['test_acc'])
+    plt.savefig(f'{img_save_path}test_acc.jpg')
+
+    return f' s10_run_main() ended successfully '

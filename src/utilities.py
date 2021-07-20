@@ -231,7 +231,7 @@ class tiny_imagenet_plots:
             class_names_dict[idx] = label
 
         fig_name = 'Test_Misclass_Imgs'
-        figure = plt.figure(figsize=(10, 10))
+        figure = plt.figure(figsize=(20, 20))
         print(f'** Plotting misclassified test images from last epoch for Tiny Imagenet **')
         print('\n')
         if len(counters['mis_img']) > num_images:
@@ -241,8 +241,8 @@ class tiny_imagenet_plots:
                 unnorm_img = self.unnormalize_np_tensor(counters['mis_img'][i].cpu())
                 plt.imshow(unnorm_img, interpolation='none')
                 prediction = class_names_dict.get(counters['mis_pred'][i])
-                #actual = class_names_dict.get(counters['mis_lbl'][i])
-                s = "p=" + str(prediction)
+                actual = class_names_dict.get(counters['mis_lbl'][i])
+                s = "p=" + str(prediction) + "a=" + str(actual)
                 plt.text(2, -1, s)
             plt.savefig(f'{self.img_save_path}{fig_name}.jpg')
             mis_arr = plt.imread(f'{self.img_save_path}{fig_name}.jpg')
