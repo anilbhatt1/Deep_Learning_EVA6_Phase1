@@ -157,7 +157,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S10_TinyImagen
 ## Loss And Accuracy Plots
 - Training Loss
 
-![Training_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S10_TinyImagenet_Kmeans/train_Loss.jpg)
+![Training_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S10_TinyImagenet_Kmeans/train_loss.jpg)
 
 - Training Accuracy
 
@@ -165,7 +165,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S10_TinyImagen
 
 - Testing Loss
 
-![Testing_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S10_TinyImagenet_Kmeans/test_Loss.jpg)
+![Testing_loss](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S10_TinyImagenet_Kmeans/test_loss.jpg)
 
 - Testing Accuracy
 
