@@ -25,6 +25,10 @@
 - **S9_CustomResNet_OnecycleLR**
     - Image Classification on CIFAR-10 using customized ResNet-18.
     - OneCycle LR was used. Max_LR was found out via range test 
+- **S10_TinyImagenet_Kmeans**
+    - Training tiny-imagenet-200 dataset having 200 classes against ResNet-18.
+    - Custom made data augmentation strategy was employed.
+    - Using K-Means clustering to find the optimum number of bounding boxes to be used for test coco dataset having 10_105 records
     
       
             
