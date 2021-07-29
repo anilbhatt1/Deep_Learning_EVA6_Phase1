@@ -19,6 +19,7 @@ ________
 
 * [Prerequisites](#prerequisites)
 * [OpenCV Yolo](#OpenCV-Yolo)
+* [Understanding Yolo](#Understanding-Yolo)
 * [Yolo-V3 Steps Before Training](#Yolo-V3-Steps-Before-Training)
 * [Yolo-V3 Training](#Yolo-V3-Training)
 * [License](#license)
@@ -38,6 +39,12 @@ ________
 - Image showing person and book as captured by OpenCV-Yolo can be seen as below.
 
 ![Opencv](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S11_Yolo/Yolo_Opencv_Selfie.png)
+
+<!-- Understanding-Yolo -->
+## Understanding Yolo
+
+- Please refer below article to gain an understanding on how Yolo works.
+https://anilbhatt1.tech.blog/2020/07/03/understanding-object-detection-with-yolo/
 
 <!-- Yolo-V3-Steps-Before-Training -->
 ## Yolo-V3 Steps Before Training
