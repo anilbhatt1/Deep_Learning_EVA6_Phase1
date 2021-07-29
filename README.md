@@ -29,6 +29,9 @@
     - Training tiny-imagenet-200 dataset having 200 classes against ResNet-18.
     - Custom made data augmentation strategy was employed.
     - Using K-Means clustering to find the optimum number of bounding boxes to be used for test coco dataset having 10_105 records
+- **S11_Yolo**
+    - Object detection using Open-CV Yolo
+    - Object detection using Yolo-V3
     
       
             
