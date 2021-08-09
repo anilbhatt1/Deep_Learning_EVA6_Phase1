@@ -32,7 +32,10 @@
 - **S11_Yolo**
     - Object detection using Open-CV Yolo
     - Object detection using Yolo-V3
-    
+- **S13_VIT**
+    - Understanding Vision Transformers via coding
+    - Dog vs Cat classification Vision transformers - Pretrained model
+    - Dog vs Cat classification Vision transformers - Custom-made VIT model
       
             
             
