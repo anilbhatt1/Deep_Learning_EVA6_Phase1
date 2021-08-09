@@ -33,15 +33,19 @@ ________
 <!-- VIT-Architecture -->
 ## VIT-Architecture
 
-- Image below shows overall VIT architecture
+- Overall classification flow using VIT is as below
+
+![ovr](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S13_VIT/VIT_In_a_nutshell.png)
+
+- Image below shows VIT architecture
 
 ![VIT](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S13_VIT/VIT_Architecture.png)
 
 - Combined embeddings are created as below
 
-![Combined_Embeddings](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S13_VIT/Combined_Embedding.png)
+![Combined_Embeddings](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S13_VIT/Combined_Embedding_Creation.png)
 
-- Layer-bylayer flow through a 12 layer transformer encoder till classification is as shown below. Out of 197x768, only 1x768 that belongs to [CLS] token only is fed to MLP head for classification.
+- Layer-by-Layer flow through a 12 layer transformer encoder till classification is as shown below. Out of 197x768, only 1x768 that belongs to [CLS] token only is fed to MLP head for classification.
 
 ![VIT_Layer_Flow](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S13_VIT/Encoder_Layer_Flow.png)
 
@@ -62,6 +66,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S13_VIT/Sessio
 
 - Github link : https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S13_VIT/EVA6_S13_VIT_Cats_Dogs_V1.ipynb
 - First part covers classification using Pre-trained model
+- Second part covers classification using Custom-made VIT model based on S13 class notes
 
 <!-- LICENSE -->
 ## License
