@@ -36,7 +36,7 @@ ________
 - **Dataset Used** : CIFAR-10 , Image Resolution : 32x32x3
 - For Training details, refer below colab notebook locations:
     - Completely modularized - only calls main.py in colab notebook
-https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/EVA6_S9_Custom_Resnet__V3.ipynb
+https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/EVA6_S9_Custom_Resnet_V3.ipynb
     - Partially modularized  - Calls few functions & other py files in colab notebook
 https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S9_CustomResNet_OnecycleLR/EVA6_S9_Custom_Resnet__V2.ipynb
     - Non-modularized - All functions and classes defined inside colab notebook iteslf
