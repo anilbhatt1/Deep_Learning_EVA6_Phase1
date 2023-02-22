@@ -91,7 +91,7 @@ https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/main/S7_Dilated_Dep
 - Final convolution block uses two 3x3 conv2d. This is followed by 3x3 dilated convolution with dilation =2 & padding =2 which effectively makes 3x3 behave like a 5x5 without downsizing.
 - Output from final convolution layer is passed to Gap followed by FC (1x1) and Softmax.
 
-![Network](S7_Dilated_Depthwise/Network Diag.jpg)
+![Network](https://github.com/anilbhatt1/Deep_Learning_EVA6_Phase1/blob/d4f3d34cd04dc76f72ca6262929887cfef3d0866/S7_Dilated_Depthwise/Network%20Diag.jpg)
 
 <!-- Loss-And-Accuracy-Plots -->
 ## Loss And Accuracy Plots
